@@ -7,6 +7,7 @@
   - [1. Introduction](#1-introduction)
   - [2. Final game mechanics](#2-final-game-mechanics)
     - [2.1. Player](#21-player)
+      - [➭ **Future Improvements**](#-future-improvements)
     - [2.2. Obstacles](#22-obstacles)
     - [2.3 Features](#23-features)
   - [3. MVP](#3-mvp)
@@ -25,7 +26,6 @@
     - [4.3. Bumper](#43-bumper)
     - [4.4. Orb](#44-orb)
 
-
 </summary></details>
 
 ## 1. Introduction
@@ -42,11 +42,51 @@ The original cosmetics are:
 
 **Main character**
 
-![Icon](img/icon.png)
+![Cube](img/icon.png)
+
+![CubePortal](img/cubePortal.png)
+
+To enter another game mode, the player will have to go through portals that will transform the player into the character of the game mode.
 
 **Ship:**
 
 ![Ship](img/ship.png)
+
+![ShipPortal](img/shipPortal.png)
+
+#### ➭ **Future Improvements**
+
+We will add new character types, that won't be playable in an early stage of the game, such as:
+
+**Ball:**
+
+![Ball](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ball.png)
+
+![BallPortal](img/ballPortal.png)
+
+**Robot:**
+
+![Robot](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/robot.png)
+
+![RobotPortal](img/robotPortal.png)
+
+**Spider:**
+
+![Spider](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/spider.png)
+
+![SpiderPortal](img/spiderPortal.png)
+
+**Wave:**
+
+![Wave](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/triangle.png)
+
+![WavePortal](img/wavePortal.png)
+
+**UFO:**
+
+![UFO](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ufo.png)
+
+![UFOPortal](img/ufoPortal.png)
 
 ### 2.2. Obstacles
 
@@ -54,7 +94,7 @@ There will be different types of obstacles that the player will have to avoid. W
 
 ![Block](img/block.png) ![Spike](img/spike.png)
 
-### 2.3 Features 
+### 2.3 Features
 
 We plan to add coins that the player can collect to increase their score. The coins will look like this:
 
@@ -88,7 +128,7 @@ The screen will roll from left to right but it will not decomposed and composed 
 
 A ground will be implemented as well as a gravity system like in the original game.
 
-### 3.7. Jump 
+### 3.7. Jump
 
 The jump feature will be indispensable since it's a plateform game which need to avoid obstacles by jumping over them.
 
@@ -125,6 +165,10 @@ We will add new character types, that won't be playable in an early stage of the
 **UFO:**
 
 ![UFO](img/ufo.png)
+
+**Color customization:**
+
+The user will be able to choose within multiple available colors to customize the appearance of his character. A customization shop will be available to the user to do so.
 
 ### 4.2. Game Mode
 
