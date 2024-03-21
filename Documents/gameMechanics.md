@@ -21,6 +21,9 @@
     - [3.9. Black Box Obstacle](#39-black-box-obstacle)
   - [4. Future Improvements](#4-future-improvements)
     - [4.1. Player](#41-player)
+    - [4.2. Game Mode](#42-game-mode)
+    - [4.3. Bumper](#43-bumper)
+    - [4.4. Orb](#44-orb)
 
 
 </summary></details>
@@ -122,3 +125,49 @@ We will add new character types, that won't be playable in an early stage of the
 **UFO:**
 
 ![UFO](img/ufo.png)
+
+### 4.2. Game Mode
+
+Other game modes could be implemented in a breif delay. Two have already been thought.
+
+**Practice Mode:**
+
+For the Practice mode we would copy the same as the original one, adding checkpoint under cristal form. They would spawn every 2 clock cycles.
+Two buttons will be added to create and remove a crystal.
+If a checkpoint is set just before dying, it would be automatically removed.
+
+**Infinity mode:**
+
+This mode is the basic mode but you need to survive the longer you can. It will increment a score to add some competition.
+
+### 4.3. Bumper
+
+Some bumbers would be implemented, they basically make you jump automatically.
+
+**Yellow:**
+
+The yellow is the basic one, it makes you do a basic jump.
+
+**Pink:**
+
+The pink one would make you jump half a basic jump.
+
+**Blue:** 
+
+The blue one wouldchange the gravity if you touch it.
+
+### 4.4. Orb
+
+Some Orbs would be implemented, they make you jump when you press the left click or thz space bare when you are on the sameposition as the orb.
+
+**Yellow:**
+
+The yellow is the basic one, it makes you do a basic jump.
+
+**Pink:**
+
+The pink one would make you jump half a basic jump.
+
+**Blue:** 
+
+The blue one wouldchange the gravity if you touch it.
