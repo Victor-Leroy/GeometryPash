@@ -8,7 +8,9 @@ In this document we will be discussing the mechanics of our remake of the game G
 
 ### Player
 
-The player will be able to jump and the screen will move automatically. The player will have to avoid obstacles and reach the end of the level.
+The player will be able to jump and the screen will move automatically. The player will have to avoid obstacles and reach the end of the level. The player will be represented by a square looking like this:
+
+![Player](img/icon.png)
 
 ### Obstacles
 
