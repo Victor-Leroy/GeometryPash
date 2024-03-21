@@ -38,11 +38,51 @@ The original cosmetics are:
 
 **Main character**
 
-![Icon](img/icon.png)
+![Cube](img/icon.png)
+
+![CubePortal](img/cubePortal.png)
+
+To enter another game mode, the player will have to go through portals that will transform the player into the character of the game mode.
 
 **Ship:**
 
 ![Ship](img/ship.png)
+
+![ShipPortal](img/shipPortal.png)
+
+#### ➭ **Future Improvements**
+
+We will add new character types, that won't be playable in an early stage of the game, such as:
+
+**Ball:**
+
+![Ball](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ball.png)
+
+![BallPortal](img/ballPortal.png)
+
+**Robot:**
+
+![Robot](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/robot.png)
+
+![RobotPortal](img/robotPortal.png)
+
+**Spider:**
+
+![Spider](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/spider.png)
+
+![SpiderPortal](img/spiderPortal.png)
+
+**Wave:**
+
+![Wave](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/triangle.png)
+
+![WavePortal](img/wavePortal.png)
+
+**UFO:**
+
+![UFO](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ufo.png)
+
+![UFOPortal](img/ufoPortal.png)
 
 ### 2.2. Obstacles
 
