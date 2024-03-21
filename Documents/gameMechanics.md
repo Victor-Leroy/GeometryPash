@@ -4,7 +4,7 @@
 
 In this document we will be discussing the mechanics of our remake of the game Geometry Dash.
 
-## Mechanics
+## Final game mechanics
 
 ### Player
 
@@ -28,9 +28,17 @@ S
 
 ### Obstacles
 
-There will be different types of obstacles that the player will have to avoid. Some of these obstacles will be static and some will move.
+There will be different types of obstacles that the player will have to avoid. We will only do the black box obstacle and the spikes obstacle. The black box obstacle and spike will look like this:
+
+![Block](img/block.png) ![Spike](img/spike.png)
 
 ### Features 
+
+We plan to add coins that the player can collect to increase their score. The coins will look like this:
+
+![Coin](img/coin.png)
+
+We also plan to add an attempt counter that will keep track of the number of times the player has died.
 
 ## MVP
 
