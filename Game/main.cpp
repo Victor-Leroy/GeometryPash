@@ -17,10 +17,10 @@ public:
         sprite.setTexture(texture);
 
         // Optionally, resize the sprite
-        // sprite.setScale(sf::Vector2f(0.5f, 0.5f)); // Example scale
+        sprite.setScale(sf::Vector2f(0.5f, 0.5f)); // Example scale
 
         // Set the starting position of the sprite
-        shape.setPosition(100.0f, 500.0f); // Starting position
+        sprite.setPosition(100.0f, 500.0f); // Starting position
     }
 
     void update(float deltaTime) {
@@ -36,17 +36,17 @@ public:
         }
 
         // Update position
-        shape.move(0.0f, verticalVelocity * deltaTime);
+        sprite.move(0.0f, verticalVelocity * deltaTime);
 
         // Example ground check
-        if (shape.getPosition().y >= 500.0f) {
-            shape.setPosition(shape.getPosition().x, 500.0f);
+        if (sprite.getPosition().y >= 500.0f) {
+            sprite.setPosition(sprite.getPosition().x, 500.0f);
             verticalVelocity = 0.0f;
         }
     }
 
     bool isOnGround() {
-        return shape.getPosition().y >= 500.0f; // Simplified ground check
+        return sprite.getPosition().y >= 500.0f; // Simplified ground check
     }
 
     void jump() {
@@ -56,7 +56,6 @@ public:
     }
 };
 
-// Example usage
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Game");
     Player player;
@@ -78,7 +77,7 @@ int main() {
         player.update(deltaTime);
 
         window.clear();
-        window.draw(player.sprite);
+        window.draw(player.sprite); // Draw the sprite instead of the sprite
         window.display();
     }
 
