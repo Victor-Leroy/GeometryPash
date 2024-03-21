@@ -7,7 +7,6 @@
   - [1. Introduction](#1-introduction)
   - [2. Final game mechanics](#2-final-game-mechanics)
     - [2.1. Player](#21-player)
-      - [➭ **Future Improvements**](#-future-improvements)
     - [2.2. Obstacles](#22-obstacles)
     - [2.3 Features](#23-features)
   - [3. MVP](#3-mvp)
@@ -54,40 +53,6 @@ To enter another game mode, the player will have to go through portals that will
 ![Ship](img/ship.png)
 
 ![ShipPortal](img/shipPortal.png)
-
-#### ➭ **Future Improvements**
-
-We will add new character types, that won't be playable in an early stage of the game, such as:
-
-**Ball:**
-
-![Ball](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ball.png)
-
-![BallPortal](img/ballPortal.png)
-
-**Robot:**
-
-![Robot](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/robot.png)
-
-![RobotPortal](img/robotPortal.png)
-
-**Spider:**
-
-![Spider](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/spider.png)
-
-![SpiderPortal](img/spiderPortal.png)
-
-**Wave:**
-
-![Wave](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/triangle.png)
-
-![WavePortal](img/wavePortal.png)
-
-**UFO:**
-
-![UFO](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ufo.png)
-
-![UFOPortal](img/ufoPortal.png)
 
 ### 2.2. Obstacles
 
@@ -151,21 +116,31 @@ We will add new character types, that won't be playable in an early stage of the
 
 ![Ball](img/ball.png)
 
+![BallPortal](img/ballPortal.png)
+
 **Robot:**
 
 ![Robot](img/robot.png)
+
+![RobotPortal](img/robotPortal.png)
 
 **Spider:**
 
 ![Spider](img/spider.png)
 
-**Triangle:**
+![SpiderPortal](img/spiderPortal.png)
 
-![Triangle](img/triangle.png)
+**Wave:**
+
+![Wave](img/triangle.png)
+
+![WavePortal](img/wavePortal.png)
 
 **UFO:**
 
 ![UFO](img/ufo.png)
+
+![UFOPortal](img/ufoPortal.png)
 
 **Color customization:**
 
