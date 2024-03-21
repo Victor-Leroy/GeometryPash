@@ -7,7 +7,7 @@
   - [1. Introduction](#1-introduction)
   - [2. Final game mechanics](#2-final-game-mechanics)
     - [2.1. Player](#21-player)
-      - [➭ Future Improvements:](#-future-improvements)
+      - [➭ **Future Improvements**](#-future-improvements)
     - [2.2. Obstacles](#22-obstacles)
     - [2.3 Features](#23-features)
   - [3. MVP](#3-mvp)
@@ -44,11 +44,29 @@ The original cosmetics are:
 
 ![Ship](img/ship.png)
 
-#### ➭ Future Improvements: 
+#### ➭ **Future Improvements**
 
-We will add new character types: 
+We will add new character types, that won't be playable in an early stage of the game, such as:
 
-S
+**Ball:**
+
+![Ball](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ball.png)
+
+**Robot:**
+
+![Robot](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/robot.png)
+
+**Spider:**
+
+![Spider](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/spider.png)
+
+**Triangle:**
+
+![Triangle](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/triangle.png)
+
+**UFO:**
+
+![UFO](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ufo.png)
 
 ### 2.2. Obstacles
 
