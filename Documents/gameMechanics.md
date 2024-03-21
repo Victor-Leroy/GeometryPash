@@ -7,6 +7,7 @@
   - [1. Introduction](#1-introduction)
   - [2. Final game mechanics](#2-final-game-mechanics)
     - [2.1. Player](#21-player)
+      - [➭ Future Improvements:](#-future-improvements)
     - [2.2. Obstacles](#22-obstacles)
     - [2.3 Features](#23-features)
   - [3. MVP](#3-mvp)
@@ -31,9 +32,23 @@ In this document we will be discussing the mechanics of our remake of the game G
 
 ### 2.1. Player
 
-The player will be able to jump and the screen will move automatically. The player will have to avoid obstacles and reach the end of the level. The player will be represented by a square looking like this:
+The player will be able to use multiple type of characters that behave differently. The player will be able to select through a variety of characters, colors, styles...
+
+The original cosmetics are:
+
+**Main character**
 
 ![Icon](img/icon.png)
+
+**Ship:**
+
+![Ship](img/ship.png)
+
+#### ➭ Future Improvements: 
+
+We will add new character types: 
+
+S
 
 ### 2.2. Obstacles
 
