@@ -22,7 +22,6 @@
   - [4. Future Improvements](#4-future-improvements)
     - [4.1. Player](#41-player)
 
-
 </summary></details>
 
 ## 1. Introduction
@@ -51,7 +50,7 @@ There will be different types of obstacles that the player will have to avoid. W
 
 ![Block](img/block.png) ![Spike](img/spike.png)
 
-### 2.3 Features 
+### 2.3 Features
 
 We plan to add coins that the player can collect to increase their score. The coins will look like this:
 
@@ -85,7 +84,7 @@ The screen will roll from left to right but it will not decomposed and composed 
 
 A ground will be implemented as well as a gravity system like in the original game.
 
-### 3.7. Jump 
+### 3.7. Jump
 
 The jump feature will be indispensable since it's a plateform game which need to avoid obstacles by jumping over them.
 
@@ -122,3 +121,7 @@ We will add new character types, that won't be playable in an early stage of the
 **UFO:**
 
 ![UFO](img/ufo.png)
+
+**Color customization:**
+
+The user will be able to choose within multiple available colors to customize the appearance of his character. A customization shop will be available to the user to do so.
