@@ -168,13 +168,25 @@ Some bumbers would be implemented, they basically make you jump automatically.
 
 The yellow is the basic one, it makes you do a basic jump.
 
+---
+
+![Yellow Bumper](img/YellowJumpPad.png)
+
 **Pink:**
 
 The pink one would make you jump half a basic jump.
 
-**Blue:** 
+---
+
+![Pink bumper](img/MagentaJumpPad.png)
+
+**Blue:**
 
 The blue one wouldchange the gravity if you touch it.
+
+---
+
+![Blue bumper](img/CyanGravityPad.png)
 
 ### 4.4. Orb
 
@@ -184,11 +196,25 @@ Some Orbs would be implemented, they make you jump when you press the left click
 
 The yellow is the basic one, it makes you do a basic jump.
 
+---
+
+![Yellow Orb](img/YellowJumpRing.png)
+
 **Pink:**
 
 The pink one would make you jump half a basic jump.
 
-**Blue:** 
+---
+
+![Pink Orb](img/MagentaJumpRing.png)
+
+**Blue:**
+
+The blue one wouldchange the gravity if you touch it.
+
+---
+
+![Blue Orb](img/CyanGravityRing.png)
 
 The blue one wouldchange the gravity if you touch it.
 
