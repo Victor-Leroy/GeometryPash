@@ -14,11 +14,11 @@ The original cosmetics are:
 
 **Main character**
 
-![Icon](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/icon.png)
+![Icon](img/icon.png)
 
-**Rocket:**
+**Ship:**
 
-![Rocket](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/rocket.png)
+![Ship](img/ship.png)
 
 #### Future Improvements: 
 
