@@ -14,7 +14,7 @@ public:
 
     Player() {
          // Load the texture
-        if (!texture.loadFromFile("./sprites/character.png")) { // Replace "character.png" with your image file
+        if (!texture.loadFromFile("./sprites/icon.png")) { // Replace "character.png" with your image file
             // Handle error
         }
 
