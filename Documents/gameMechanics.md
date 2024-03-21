@@ -20,11 +20,29 @@ The original cosmetics are:
 
 ![Ship](img/ship.png)
 
-#### Future Improvements: 
+#### Future Improvements
 
-We will add new character types: 
+We will add new character types, that won't be playable in an early stage of the game, such as:
 
-S
+**Ball:**
+
+![Ball](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ball.png)
+
+**Robot:**
+
+![Robot](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/robot.png)
+
+**Spider:**
+
+![Spider](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/spider.png)
+
+**Triangle:**
+
+![Triangle](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/triangle.png)
+
+**UFO:**
+
+![UFO](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ufo.png)
 
 ### Obstacles
 
@@ -32,7 +50,7 @@ There will be different types of obstacles that the player will have to avoid. W
 
 ![Block](img/block.png) ![Spike](img/spike.png)
 
-### Features 
+### Features
 
 We plan to add coins that the player can collect to increase their score. The coins will look like this:
 
