@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <cmath> // For std::abs and std::fmod
 
 class Player {
 public:
@@ -6,6 +7,10 @@ public:
     sf::Texture texture;
     float verticalVelocity = 0.0f;
     bool isJumping = false;
+    bool isRotating = false; // Indicates if the character is currently rotating
+    float rotationSpeed = 300.0f; // Speed of rotation in degrees per second
+    float totalRotation = 0.0f; // Reset rotation for new jump
+
 
     Player() {
          // Load the texture
@@ -20,19 +25,40 @@ public:
         sprite.setScale(sf::Vector2f(0.5f, 0.5f)); // Example scale
 
         // Set the starting position of the sprite
+        sprite.setOrigin(texture.getSize().x / 2.0f, texture.getSize().y / 2.0f); // Set the origin to the center of the texture
         sprite.setPosition(100.0f, 500.0f); // Starting position
     }
 
     void update(float deltaTime) {
-        const float gravity = 1000.0f; // Pixels per second^2
+        const float gravity = 1200.0f; // Pixels per second^2
         const float jumpVelocity = -500.0f; // Initial jump velocity
+        const float maxRotation = 180.0f; // Duration of rotation in seconds
 
-        // Apply gravity if in the air
-        if (!isOnGround()) {
+        // Apply gravity
+        if (!isOnGround() || isJumping) {
             verticalVelocity += gravity * deltaTime;
-        } else if (isJumping) {
+        }
+
+        // Start jump
+        if (isJumping && isOnGround()) {
             verticalVelocity = jumpVelocity;
             isJumping = false;
+            isRotating = true;
+            totalRotation = 0.0f; // Reset rotation for new jump
+        }
+
+        // Handle rotation
+        if (isRotating) {
+            float rotationStep = rotationSpeed * deltaTime;
+            sprite.rotate(rotationStep);
+            totalRotation += rotationStep;
+            // Check if rotation exceeds or meets the target
+            if (totalRotation >= maxRotation) {
+                isRotating = false;
+                // Adjust for any overshoot beyond the target rotation
+                float overshoot = std::fmod(totalRotation, maxRotation);
+                sprite.rotate(-overshoot);
+            }
         }
 
         // Update position
