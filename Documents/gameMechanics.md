@@ -25,6 +25,7 @@
     - [4.2. Game Mode](#42-game-mode)
     - [4.3. Bumper](#43-bumper)
     - [4.4. Orb](#44-orb)
+    - [4.4. Level System](#44-level-system)
 
 </summary></details>
 
@@ -215,3 +216,7 @@ The pink one would make you jump half a basic jump.
 **Blue:** 
 
 The blue one wouldchange the gravity if you touch it.
+
+### 4.4. Level System
+
+Some new levels would be regularly implemented with different difficulty level (Easy, Medium, Hard, Impossible).
