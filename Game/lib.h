@@ -2,24 +2,10 @@
 #include <cmath> // For std::abs and std::fmod
 #include <vector>
 #include <cstdlib> // For rand() and srand()
-#include <ctime>   // For
+#include <ctime>   // For Time()
+#include <algorithm> // For std::remove_if
 
 
-class Obstacle {
-public:
-    sf::RectangleShape shape;
-    const float speed = 150.0f; // Obstacle movement speed
-
-    Obstacle(sf::Vector2f size, sf::Vector2f position) {
-        shape.setSize(size);
-        shape.setPosition(position);
-        shape.setFillColor(sf::Color::Red); // Example color
-    }
-
-    void update(float deltaTime) {
-        shape.move(-speed * deltaTime, 0); // Move left
-    }
-};
 
 class ScrollingBackground {
 public:
@@ -143,3 +129,41 @@ public:
         }
     }
 };
+
+
+class Game {
+public:
+    sf::RenderWindow window;
+    Game() : window(sf::VideoMode(800, 600), "Game") {
+        srand(static_cast<unsigned int>(time(0))); // Seed for random
+    }
+
+    void run() {
+        Player player;
+        ScrollingBackground background;
+        sf::Clock clock;
+
+        while (window.isOpen()) {
+            sf::Event event;
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::Closed)
+                    window.close();
+
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
+                    player.jump();
+                }
+            }
+
+            float deltaTime = clock.restart().asSeconds();
+
+            player.update(deltaTime);
+            background.update(deltaTime);
+
+            window.clear();
+            background.draw(window);
+            window.draw(player.sprite); // Draw the sprite instead of the sprite
+            window.display();
+        }         
+    }
+};
+
