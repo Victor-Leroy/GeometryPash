@@ -220,3 +220,4 @@ The blue one wouldchange the gravity if you touch it.
 ### 4.4. Level System
 
 Some new levels would be regularly implemented with different difficulty level (Easy, Medium, Hard, Impossible).
+The user would be able to choose which level he wants to play by scrolling the levels on the menu.
