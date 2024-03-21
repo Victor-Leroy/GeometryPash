@@ -114,31 +114,31 @@ We will add new character types, that won't be playable in an early stage of the
 
 **Ball:**
 
-![Ball](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ball.png)
+![Ball](img/ball.png)
 
 ![BallPortal](img/ballPortal.png)
 
 **Robot:**
 
-![Robot](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/robot.png)
+![Robot](img/robot.png)
 
 ![RobotPortal](img/robotPortal.png)
 
 **Spider:**
 
-![Spider](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/spider.png)
+![Spider](img/spider.png)
 
 ![SpiderPortal](img/spiderPortal.png)
 
 **Wave:**
 
-![Wave](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/triangle.png)
+![Wave](img/triangle.png)
 
 ![WavePortal](img/wavePortal.png)
 
 **UFO:**
 
-![UFO](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ufo.png)
+![UFO](img/ufo.png)
 
 ![UFOPortal](img/ufoPortal.png)
 
