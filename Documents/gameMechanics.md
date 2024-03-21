@@ -247,3 +247,7 @@ The blue one wouldchange the gravity if you touch it.
 
 Some new levels would be regularly implemented with different difficulty level (Easy, Medium, Hard, Impossible).
 The user would be able to choose which level he wants to play by scrolling the levels on the menu.
+
+### 4.5. Level Editor
+
+A level editor would be implemented to allow the user to create his own levels and share them with the community. The user would be able to choose the difficulty of the level and the type of obstacles he wants to put in it. The user would also be able to choose the music that will be played during the level. The user would be able to test the level before publishing it. The level will have to completed by the user before releasing it publicly.
