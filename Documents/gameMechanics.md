@@ -50,23 +50,23 @@ We will add new character types, that won't be playable in an early stage of the
 
 **Ball:**
 
-![Ball](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ball.png)
+![Ball](img/ball.png)
 
 **Robot:**
 
-![Robot](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/robot.png)
+![Robot](img/robot.png)
 
 **Spider:**
 
-![Spider](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/spider.png)
+![Spider](img/spider.png)
 
 **Triangle:**
 
-![Triangle](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/triangle.png)
+![Triangle](img/triangle.png)
 
 **UFO:**
 
-![UFO](https://github.com/Victor-Leroy/CPPGame/blob/Dev/Game/sprites/ufo.png)
+![UFO](img/ufo.png)
 
 ### 2.2. Obstacles
 
