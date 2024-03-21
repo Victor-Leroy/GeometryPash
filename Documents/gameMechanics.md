@@ -7,7 +7,6 @@
   - [1. Introduction](#1-introduction)
   - [2. Final game mechanics](#2-final-game-mechanics)
     - [2.1. Player](#21-player)
-      - [➭ **Future Improvements**](#-future-improvements)
     - [2.2. Obstacles](#22-obstacles)
     - [2.3 Features](#23-features)
   - [3. MVP](#3-mvp)
@@ -20,6 +19,8 @@
     - [3.7. Jump](#37-jump)
     - [3.8. Death](#38-death)
     - [3.9. Black Box Obstacle](#39-black-box-obstacle)
+  - [4. Future Improvements](#4-future-improvements)
+    - [4.1. Player](#41-player)
 
 
 </summary></details>
@@ -43,30 +44,6 @@ The original cosmetics are:
 **Ship:**
 
 ![Ship](img/ship.png)
-
-#### ➭ **Future Improvements**
-
-We will add new character types, that won't be playable in an early stage of the game, such as:
-
-**Ball:**
-
-![Ball](img/ball.png)
-
-**Robot:**
-
-![Robot](img/robot.png)
-
-**Spider:**
-
-![Spider](img/spider.png)
-
-**Triangle:**
-
-![Triangle](img/triangle.png)
-
-**UFO:**
-
-![UFO](img/ufo.png)
 
 ### 2.2. Obstacles
 
@@ -119,3 +96,29 @@ In the case you hit an obstacle side-on for a square, you should die and restart
 ### 3.9. Black Box Obstacle
 
 The obstacle previously mentionned would only be black square for the mvp.
+
+## 4. Future Improvements
+
+### 4.1. Player
+
+We will add new character types, that won't be playable in an early stage of the game, such as:
+
+**Ball:**
+
+![Ball](img/ball.png)
+
+**Robot:**
+
+![Robot](img/robot.png)
+
+**Spider:**
+
+![Spider](img/spider.png)
+
+**Triangle:**
+
+![Triangle](img/triangle.png)
+
+**UFO:**
+
+![UFO](img/ufo.png)
