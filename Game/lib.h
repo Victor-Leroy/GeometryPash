@@ -167,8 +167,42 @@ public:
         }
     }
 
+     void titleScreen() {
+        sf::Font font;
+        if (!font.loadFromFile("./fonts/yourFontFile.ttf")) { // Load a font
+            // Handle error
+        }
+
+        sf::Text title("Geometry Dash Clone", font, 50); // Create a text object
+        title.setFillColor(sf::Color::White);
+        title.setPosition(200, window.getSize().y / 2 - 100); // Position the text
+
+        sf::Text pressToStart("Press any key to start", font, 20);
+        pressToStart.setFillColor(sf::Color::White);
+        pressToStart.setPosition(250, window.getSize().y / 2); // Position the text
+
+        while (window.isOpen()) {
+            sf::Event event;
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::Closed)
+                    window.close();
+
+                // Start the game if any key is pressed
+                if (event.type == sf::Event::KeyPressed) {
+                    return; // Return to proceed to the main game loop
+                }
+            }
+
+            window.clear();
+            window.draw(title);
+            window.draw(pressToStart);
+            window.display();
+        }
+    }
+
 
     void run() {
+        titleScreen();
         Player player;
         ScrollingBackground background;
         sf::Clock clock;
