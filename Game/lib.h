@@ -78,8 +78,8 @@ public:
     }
 
     void update(float deltaTime) {
-        const float gravity = 1200.0f; // Pixels per second^2
-        const float jumpVelocity = -500.0f; // Initial jump velocity
+        const float gravity = 1700.0f; // Pixels per second^2
+        const float jumpVelocity = -600.0f; // Initial jump velocity
         const float maxRotation = 180.0f; // Duration of rotation in seconds
 
         // Apply gravity
@@ -134,9 +134,26 @@ public:
 class Game {
 public:
     sf::RenderWindow window;
-    Game() : window(sf::VideoMode(800, 600), "Game") {
+    sf::RectangleShape ground;
+    sf::Texture groundTexture;
+    sf::Sprite groundSprite;
+    sf::Texture groundBackgroundTexture;
+    sf::Sprite groundBackgroundSprite;
+
+    Game() : window(sf::VideoMode(800, 600), "Game"), ground(sf::Vector2f(800.0f, 5.0f)) {
         srand(static_cast<unsigned int>(time(0))); // Seed for random
+        ground.setPosition(0, 530);
+
+        // Load the ground background texture
+        if (!groundBackgroundTexture.loadFromFile("./sprites/gdbackground.png")) {
+            // handle error
+        }
+
+        // Set the ground background texture to the sprite
+        groundBackgroundSprite.setTexture(groundBackgroundTexture);
+        groundBackgroundSprite.setPosition(0, 530); // Position it below the ground line
     }
+
 
     void run() {
         Player player;
@@ -160,8 +177,15 @@ public:
             background.update(deltaTime);
 
             window.clear();
+
             background.draw(window);
             window.draw(player.sprite); // Draw the sprite instead of the sprite
+
+            window.draw(groundBackgroundSprite);
+
+            window.draw(groundSprite);
+            window.draw(ground);
+            
             window.display();
         }         
     }
