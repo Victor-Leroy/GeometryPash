@@ -6,7 +6,11 @@
 #include <algorithm> // For std::remove_if
 #include <SFML/Audio.hpp>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <list>
 #include "background.hpp"
 #include "playerObject.hpp"
+#include "levelObject.hpp"
 #include "gameObject.hpp"
 
