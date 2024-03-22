@@ -85,6 +85,9 @@ public:
         titleScreen();
         Player player;
         ScrollingBackground background;
+        Obstacle block;
+        int x;
+        int y;
         sf::Clock clock;
 
         while (window.isOpen()) {
@@ -102,6 +105,7 @@ public:
 
             player.update(deltaTime);
             background.update(deltaTime);
+            block.update(deltaTime);
 
             window.clear();
 

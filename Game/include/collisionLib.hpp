@@ -20,6 +20,8 @@ public:
     bool isRotating = false; // Indicates if the character is currently rotating
     float rotationSpeed = 300.0f; // Speed of rotation in degrees per second
     float totalRotation = 0.0f; // Reset rotation for new jump
+    int x;
+    int y;
 
     Obstacle() {
          // Load the texture
@@ -47,6 +49,11 @@ public:
             sprite.setPosition(sprite.getPosition().x, 500.0f);
             verticalVelocity = 0.0f;
         }
+    }
+
+    void isCollision(){
+        x = sprite.getPosition().x;
+        y = sprite.getPosition().y;
     }
 };
 

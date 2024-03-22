@@ -13,4 +13,5 @@
 #include "playerObject.hpp"
 #include "levelObject.hpp"
 #include "gameObject.hpp"
+#include "collisionLib.hpp"
 
