@@ -18,7 +18,7 @@ public:
 
     ScrollingBackground() {
         // Load the texture
-        if (!texture.loadFromFile("./sprites/gdbackground.png")) {
+        if (!texture.loadFromFile("../ressources/sprites/gdbackground.png")) {
             // Handle loading error
         }
 
@@ -65,7 +65,7 @@ public:
 
     Player() {
          // Load the texture
-        if (!texture.loadFromFile("./sprites/icon.png")) { // Replace "character.png" with your image file
+        if (!texture.loadFromFile("../ressources/sprites/icon.png")) { // Replace "character.png" with your image file
             // Handle error
         }
 
@@ -150,7 +150,7 @@ public:
         ground.setPosition(0, 530);
 
         // Load the ground background texture
-        if (!groundBackgroundTexture.loadFromFile("./sprites/gdbackground.png")) {
+        if (!groundBackgroundTexture.loadFromFile("../ressources/sprites/gdbackground.png")) {
             // handle error
         }
 
@@ -158,7 +158,7 @@ public:
         groundBackgroundSprite.setTexture(groundBackgroundTexture);
         groundBackgroundSprite.setPosition(0, 530); // Position it below the ground line
 
-        if (!music.openFromFile("./song/StereoMadness.ogg")) { // Replace with your music file path
+        if (!music.openFromFile("../ressources/sfx/StereoMadness.ogg")) { // Replace with your music file path
             std::cout << "Error loading music" << std::endl;
             // Handle error (e.g., exit the game or continue without music)
         } else {
