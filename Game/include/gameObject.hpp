@@ -7,12 +7,10 @@ public:
     sf::Sprite groundSprite;
     sf::Texture groundBackgroundTexture;
     sf::Sprite groundBackgroundSprite;
-    std::vector<LevelObject> gameObjects; // Container for game objects
     sf::Music music; // Add a music member variable
 
     Game() : window(sf::VideoMode(800, 600), "Game"), ground(sf::Vector2f(800.0f, 5.0f)) {
         window.setFramerateLimit(60); // Limit the frame rate to 60 FPS
-        initializeLevel();
         srand(static_cast<unsigned int>(time(0))); // Seed for random
         ground.setPosition(0, 530);
 
@@ -31,19 +29,6 @@ public:
         } else {
             music.setLoop(true); // Optional: Loop the music
             music.play(); // Start playing the music
-        }
-    }
-
-
-    void initializeLevel() {
-        auto levelObjects = loadLevelData("1.level"); // Load level data
-        // Process levelObjects to instantiate game objects
-        for (const auto& obj : levelObjects) {
-            // Here, instantiate your game objects based on obj properties
-            // This is a simplified placeholder. You'll need to replace it with actual game object creation logic
-            LevelObject levelObject;
-            // Configure gameObject based on obj
-            gameObjects.push_back(levelObject);
         }
     }
 
@@ -109,17 +94,19 @@ public:
             window.draw(player.sprite); // Draw the sprite instead of the sprite
 
             window.draw(groundBackgroundSprite);
+            sf::Texture blockTexture;
+            if (!blockTexture.loadFromFile("../ressources/gfx/BLOCK.png")) {
+                std::cerr << "Error loading block texture" << std::endl;
+            }
 
+            LevelObject block(blockTexture, "BLOCK", 500, 300, 5, 1);  // A horizontal platform of blocks
+
+            window.draw(block.sprite);
             window.draw(groundSprite);
             window.draw(ground);
-
-            for (const auto& levelObject : levelObjects) {
-            window.draw(levelObject.sprite);
-            }
             
             window.display();
         }         
-
     }
 };
 

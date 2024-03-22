@@ -1,72 +1,30 @@
-enum levelType{
-    BLOCK,
-    SPIKE,
-    ywORB,
-    ywPAD,
-    pSHIP,
-    pCUBE,
-    pUPSD,
-    pRGLR
-};
+#include <string>
 
 class LevelObject {
 public:
-    sf::Sprite sprite;
-    std::string name;
-    float xPos, yPos;
-    int repeatsHorizontal, repeatsVertical;
+    sf::Sprite sprite;  // Visual representation
+    std::string type;   // Type of the object (BLOCK, SPIKE, etc.)
+    int repeatsHorizontal;  // Number of horizontal repetitions
+    int repeatsVertical;    // Number of vertical repetitions
 
-    // Pseudo-code to load a texture based on the object name
-    sf::Texture& getTextureForName(const std::string& name) {
-        static std::map<std::string, sf::Texture> textures;
-        // Lazy load textures
-        if (textures.empty()) {
-            textures["BLOCK"].loadFromFile("./sprites/block.png");
-            textures["SPIKE"].loadFromFile("./sprites/spike.png");
-            textures["ywORB"].loadFromFile("./sprites/ywORB.png");            
-            textures["ywPAD"].loadFromFile("./sprites/ywPAD.png");
-            textures["pSHIP"].loadFromFile("./sprites/pSHIP.png");
-            textures["pCUBE"].loadFromFile("./sprites/pCUBE.png");
-            textures["pUPSD"].loadFromFile("./sprites/pUPSD.png");
-            textures["pRGLR"].loadFromFile("./sprites/pRGLR.png");        
-        }
-        return textures[name];
+    // Constructor
+    LevelObject(const sf::Texture& texture, const std::string& objectType, 
+                float xPosition, float yPosition, 
+                int horizontalRepeats = 1, int verticalRepeats = 1) 
+        : type(objectType), repeatsHorizontal(horizontalRepeats), repeatsVertical(verticalRepeats) {
+        
+        sprite.setTexture(texture);
+        sprite.setPosition(xPosition, yPosition);
     }
 
-    LevelObject createLevelObjectFromData(const std::string& objectName, float xPosition, float yPosition, int hRepeats, int vRepeats) {
-        sf::Texture& texture = getTextureForName(objectName);
-        return LevelObject(texture, objectName, xPosition, yPosition, hRepeats, vRepeats);
-    }
-
-};
-
-
-
-std::vector<LevelObject> loadLevelData(const std::string& filePath) {
-    std::ifstream file(filePath);
-    std::vector<LevelObject> levelObjects;
-
-    if (!file) {
-        std::cerr << "Unable to open level data file: " << filePath << std::endl;
-        return levelObjects;
-    }
-
-    int numberOfLines;
-    file >> numberOfLines;
-    file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    std::string objectName;
-    float xPos, yPos;
-    int repeatsHorizontal, repeatsVertical;
-
-    for (int i = 0; i < numberOfLines; ++i) {
-        std::string line;
-        std::getline(file, line);
-        std::istringstream lineStream(line);
-        if (lineStream >> objectName >> xPos >> yPos >> repeatsHorizontal >> repeatsVertical) {
-            levelObjects.push_back({objectName, xPos, yPos, repeatsHorizontal, repeatsVertical});
+    // Function to draw the object on the screen
+    void draw(sf::RenderWindow& window) const {
+        for (int i = 0; i < repeatsHorizontal; ++i) {
+            for (int j = 0; j < repeatsVertical; ++j) {
+                sf::Sprite tempSprite = sprite;  // Make a copy to manipulate
+                tempSprite.move(i * sprite.getLocalBounds().width, j * sprite.getLocalBounds().height);
+                window.draw(tempSprite);
+            }
         }
     }
-
-    return levelObjects;
 };
