@@ -4,6 +4,9 @@
 #include <cstdlib> // For rand() and srand()
 #include <ctime>   // For Time()
 #include <algorithm> // For std::remove_if
+#include <SFML/Audio.hpp>
+#include <iostream>
+
 
 
 
@@ -139,6 +142,7 @@ public:
     sf::Sprite groundSprite;
     sf::Texture groundBackgroundTexture;
     sf::Sprite groundBackgroundSprite;
+    sf::Music music; // Add a music member variable
 
     Game() : window(sf::VideoMode(800, 600), "Game"), ground(sf::Vector2f(800.0f, 5.0f)) {
         srand(static_cast<unsigned int>(time(0))); // Seed for random
@@ -152,6 +156,14 @@ public:
         // Set the ground background texture to the sprite
         groundBackgroundSprite.setTexture(groundBackgroundTexture);
         groundBackgroundSprite.setPosition(0, 530); // Position it below the ground line
+
+        if (!music.openFromFile("./song/StereoMadness.ogg")) { // Replace with your music file path
+            std::cout << "Error loading music" << std::endl;
+            // Handle error (e.g., exit the game or continue without music)
+        } else {
+            music.setLoop(true); // Optional: Loop the music
+            music.play(); // Start playing the music
+        }
     }
 
 
