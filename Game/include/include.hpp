@@ -1,3 +1,4 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <cmath> // For std::abs and std::fmod
 #include <vector>
@@ -11,6 +12,7 @@
 #include <list>
 #include "background.hpp"
 #include "playerObject.hpp"
-#include "levelObject.hpp"
+// #include "levelObject.hpp"
+#include "levelObjectTest.hpp"
 #include "gameObject.hpp"
 

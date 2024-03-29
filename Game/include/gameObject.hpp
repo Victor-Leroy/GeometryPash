@@ -1,4 +1,3 @@
-
 class Game {
 public:
     sf::RenderWindow window;
@@ -8,6 +7,7 @@ public:
     sf::Texture groundBackgroundTexture;
     sf::Sprite groundBackgroundSprite;
     sf::Music music; // Add a music member variable
+    
 
     Game() : window(sf::VideoMode(800, 600), "Game"), ground(sf::Vector2f(800.0f, 5.0f)) {
         window.setFramerateLimit(60); // Limit the frame rate to 60 FPS
@@ -16,7 +16,7 @@ public:
 
         // Load the ground background texture
         if (!groundBackgroundTexture.loadFromFile("../ressources/sprites/gdbackground.png")) {
-            // handle error
+               // handle error
         }
 
         // Set the ground background texture to the sprite
@@ -37,7 +37,6 @@ public:
         if (!font.loadFromFile("./fonts/yourFontFile.ttf")) { // Load a font
             // Handle error
         }
-
         sf::Text title("Geometry Dash Clone", font, 50); // Create a text object
         title.setFillColor(sf::Color::White);
         title.setPosition(200, window.getSize().y / 2 - 100); // Position the text
@@ -57,7 +56,6 @@ public:
                     return; // Return to proceed to the main game loop
                 }
             }
-
             window.clear();
             window.draw(title);
             window.draw(pressToStart);
@@ -79,7 +77,7 @@ public:
                     window.close();
 
                 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
-                    player.jump();
+                             player.jump();
                 }
             }
 
@@ -94,14 +92,7 @@ public:
             window.draw(player.sprite); // Draw the sprite instead of the sprite
 
             window.draw(groundBackgroundSprite);
-            sf::Texture blockTexture;
-            if (!blockTexture.loadFromFile("../ressources/gfx/BLOCK.png")) {
-                std::cerr << "Error loading block texture" << std::endl;
-            }
 
-            LevelObject block(blockTexture, "BLOCK", 500, 300, 5, 1);  // A horizontal platform of blocks
-
-            window.draw(block.sprite);
             window.draw(groundSprite);
             window.draw(ground);
             
@@ -109,4 +100,3 @@ public:
         }         
     }
 };
-

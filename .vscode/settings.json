@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "chrono": "cpp"
+        ".fantomasignore": "ignore",
+        "chrono": "cpp",
+        "unordered_map": "cpp"
     }
 }
