@@ -68,6 +68,7 @@ public:
         titleScreen();
         Player player;
         ScrollingBackground background;
+        LevelObject level;
         sf::Clock clock;
 
         while (window.isOpen()) {
@@ -85,6 +86,7 @@ public:
 
             player.update(deltaTime);
             background.update(deltaTime);
+            level.getFileInformation();
 
             window.clear();
 
@@ -96,6 +98,7 @@ public:
             window.draw(groundSprite);
             window.draw(ground);
             
+
             window.display();
         }         
     }
