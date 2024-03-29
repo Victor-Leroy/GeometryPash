@@ -1,7 +1,10 @@
 {
     "files.associations": {
+        "*.c": "c",
         ".fantomasignore": "ignore",
         "chrono": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "xstring": "cpp",
+        "iosfwd": "cpp"
     }
 }

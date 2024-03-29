@@ -69,6 +69,7 @@ public:
         Player player;
         ScrollingBackground background;
         LevelObject level;
+        
         sf::Clock clock;
 
         while (window.isOpen()) {
@@ -86,12 +87,13 @@ public:
 
             player.update(deltaTime);
             background.update(deltaTime);
-            level.getFileInformation();
+            level.update(deltaTime);
 
             window.clear();
 
             background.draw(window);
             window.draw(player.sprite); // Draw the sprite instead of the sprite
+            level.createObstacle(window);
 
             window.draw(groundBackgroundSprite);
 
