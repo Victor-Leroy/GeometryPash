@@ -89,6 +89,8 @@ public:
             background.update(deltaTime);
             level.update(deltaTime);
 
+            level.getFileInformation();
+
             window.clear();
 
             background.draw(window);

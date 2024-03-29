@@ -10,10 +10,9 @@ using namespace std;
 class LevelObject {
     // string layout_file_name_ = "../ressources/level/1.txt";
     // ifstream layout_file_("../ressources/level/1.txt");
-
+    ifstream layout_file_;
 
 public:
-    // ifstream layout_file_("../ressources/level/1.txt");
 
     enum class ObjectType {
         BLOCK,
@@ -26,7 +25,7 @@ public:
         NORMAL_PORTAL
     };
 
-    LevelObject(/*string layout_file_name*/){
+    LevelObject(/*string layout_file_name*/) : layout_file_("../ressources/level/1.txt"){
         // this->layout_file_name_ = layout_file_name;
         // this->layout_file_ = layout_file_(layout_file_name_);
 
@@ -43,22 +42,22 @@ public:
                
     }; 
 
-    // void getFileInformation() {
-    //     string line;
-    //     cout << "Reading from the file" << endl;
-    //     while(getline(layout_file_, line)){
-    //         lineToObject(line);
-    //     }
-    //     return;
-    // }
+    void getFileInformation() {
+        string line;
+        cout << "Reading from the file" << endl;
+        while(getline(layout_file_, line)){
+            lineToObject(line);
+        }
+        return;
+    }
 
-    // void lineToObject(string line) {
-    //     ObjectStruct object;
-    //     scanf("%s %d %d %d %d %d", object.object_type, object.x_pos, object.y_pos, object.x_repetition, object.y_repetition, object.rotation);
-    //     // createObstacle(object);
-    //     cout << object.x_pos << endl;
-    //     return;
-    // }
+    void lineToObject(string line) {
+        ObjectStruct object;
+        scanf("%s %d %d %d %d %d", object.object_type, object.x_pos, object.y_pos, object.x_repetition, object.y_repetition, object.rotation);
+        // createObstacle(object);
+        cout << object.x_pos << endl;
+        return;
+    }
 
     sf::Sprite obstacle;
     sf::Texture obstacleTexture;
