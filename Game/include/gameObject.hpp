@@ -9,7 +9,7 @@ public:
     sf::Music music; // Add a music member variable
     
 
-    Game() : window(sf::VideoMode(800, 600), "Game"), ground(sf::Vector2f(800.0f, 5.0f)) {
+    Game() : window(sf::VideoMode(1280, 720), "Game"), ground(sf::Vector2f(800.0f, 5.0f)) {
         window.setFramerateLimit(60); // Limit the frame rate to 60 FPS
         srand(static_cast<unsigned int>(time(0))); // Seed for random
         ground.setPosition(0, 530);
@@ -32,44 +32,71 @@ public:
         }
     }
 
-     void titleScreen() {
-        sf::Font font;
-        
-        if (!font.loadFromFile("../ressources/fonts/OXYGENE1.ttf")) { // Load a font
-            // Handle error
-        }
-        sf::Font font2;
-        if (!font2.loadFromFile("../ressources/fonts/pusab.ttf")) { // Load a font
-            // Handle error
-        }
-        sf::Text title("GEOMETRY DASH", font, 50); // Create a text object
-        title.setFillColor(sf::Color(154,247,0));
-        title.setOutlineThickness(5);
-        title.setOutlineColor(sf::Color(0,0,0));    
-        title.setPosition(200, window.getSize().y / 2 - 100); // Position the text
+    void titleScreen() {
+    sf::Font font;
 
-        sf::Text pressToStart("Press any key to start", font2, 20);
-        pressToStart.setFillColor(sf::Color::White);
-        pressToStart.setPosition(275, window.getSize().y / 2); // Position the text
-
-        while (window.isOpen()) {
-            sf::Event event;
-            while (window.pollEvent(event)) {
-                if (event.type == sf::Event::Closed)
-                    window.close();
-
-                // Start the game if any key is pressed
-                if (event.type == sf::Event::KeyPressed) {
-                    return; // Return to proceed to the main game loop
-                }
-            }
-        
-            window.clear();
-            window.draw(title);
-            window.draw(pressToStart);
-            window.display();
-        }
+    sf::Texture menuBackgroundTexture;
+    sf::Sprite menuBackgroundSprite;
+    if (!menuBackgroundTexture.loadFromFile("../ressources/gfx/background.png")) {
+        std::cout << "Error loading background texture" << std::endl;
+        // Handle error
     }
+    menuBackgroundSprite.setTexture(menuBackgroundTexture);
+    menuBackgroundSprite.setScale(0.5, 0.5);
+    menuBackgroundSprite.setPosition(0, 0);
+    menuBackgroundSprite.setColor(sf::Color(66,232,0,120));
+    
+    if (!font.loadFromFile("../ressources/fonts/OXYGENE1.ttf")) { // Load a font
+        // Handle error
+    }
+    
+    sf::Font font2;
+    if (!font2.loadFromFile("../ressources/fonts/pusab.ttf")) { // Load a font
+        // Handle error
+    }
+
+    sf::Sprite titleScreenFont;
+    sf::Texture titleScreenTexture;
+    if (!titleScreenTexture.loadFromFile("../ressources/gfx/title.png")) {
+        // Handle error
+    }
+    titleScreenFont.setTexture(titleScreenTexture);
+    titleScreenFont.setScale(0.5, 0.5);
+    titleScreenFont.setPosition(200, window.getSize().y / 2 - 100); // Position the text
+
+    sf::Sprite playButton;
+    sf::Texture playButtonTexture;
+    if (!playButtonTexture.loadFromFile("../ressources/gfx/titlePlay.png")) {
+        // Handle error
+    }
+    playButton.setTexture(playButtonTexture);
+    playButton.setScale(0.5, 0.5);
+    playButton.setPosition(300, window.getSize().y / 2 + 100); // Position the text
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+
+            if (playButton.getGlobalBounds().contains(static_cast<float>(sf::Mouse::getPosition(window).x), static_cast<float>(sf::Mouse::getPosition(window).y))) {
+                playButton.setColor(sf::Color::Yellow); // Hover effect
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                    // Trigger "Play" action here
+                    return; // Assuming this exits the title screen and proceeds to the game
+                }
+            } else {
+                playButton.setColor(sf::Color::White);
+            }
+        }
+
+        window.clear();
+        window.draw(menuBackgroundSprite);
+        window.draw(playButton);
+        window.draw(titleScreenFont);
+        window.display();
+    }
+}
 
 
     void run() {
