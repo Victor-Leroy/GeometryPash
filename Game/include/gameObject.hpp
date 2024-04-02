@@ -34,10 +34,10 @@ public:
 
      void titleScreen() {
         sf::Font font;
-        if (!font.loadFromFile("./fonts/yourFontFile.ttf")) { // Load a font
+        if (!font.loadFromFile("../ressources/fonts/OXYGENE1.ttf")) { // Load a font
             // Handle error
         }
-        sf::Text title("Geometry Dash Clone", font, 50); // Create a text object
+        sf::Text title("GEOMETRY DASH", font, 50); // Create a text object
         title.setFillColor(sf::Color::White);
         title.setPosition(200, window.getSize().y / 2 - 100); // Position the text
 
@@ -86,8 +86,7 @@ public:
             player.update(deltaTime);
             background.update(deltaTime);
 
-            window.clear();
-
+            
             background.draw(window);
             window.draw(player.sprite); // Draw the sprite instead of the sprite
 
@@ -97,6 +96,8 @@ public:
             window.draw(ground);
             
             window.display();
+            window.clear();
+
         }         
     }
 };
