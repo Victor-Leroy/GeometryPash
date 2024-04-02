@@ -1,5 +1,10 @@
 class Game {
 public:
+    enum GameState {
+        TITLE_SCREEN,
+        GAMEPLAY,
+    };
+
     sf::RenderWindow window;
     sf::RectangleShape ground;
     sf::Texture groundTexture;
@@ -7,20 +12,25 @@ public:
     sf::Texture groundBackgroundTexture;
     sf::Sprite groundBackgroundSprite;
     sf::Music music; // Add a music member variable
+    GameState state;
     
 
-    Game() : window(sf::VideoMode(1280, 720), "Game"), ground(sf::Vector2f(1280.0f, 5.0f)) {
+    Game() : window(sf::VideoMode(1280, 720), "Game"), ground(sf::Vector2f(1280.0f, 5.0f)) { // Set the window size to 1280x720
         window.setFramerateLimit(60); // Limit the frame rate to 60 FPS
-        srand(static_cast<unsigned int>(time(0))); // Seed for random
         ground.setPosition(0, 530);
+        state = TITLE_SCREEN;
 
         // Load the ground background texture
         if (!groundBackgroundTexture.loadFromFile("../ressources/sprites/gdbackground.png")) {
                // handle error
         }
 
+
         // Set the ground background texture to the sprite
         groundBackgroundSprite.setTexture(groundBackgroundTexture);
+        float groundBackgroundScaleX = static_cast<float>(window.getSize().x) / groundBackgroundTexture.getSize().x;
+        float groundBackgroundScaleY = static_cast<float>(window.getSize().y) / groundBackgroundTexture.getSize().y;
+        groundBackgroundSprite.setScale(groundBackgroundScaleX, groundBackgroundScaleY);
         groundBackgroundSprite.setPosition(0, 530); // Position it below the ground line
 
         if (!music.openFromFile("../ressources/sfx/StereoMadness.ogg")) { // Replace with your music file path
@@ -32,80 +42,95 @@ public:
         }
     }
 
-    void titleScreen() {
-    sf::Font font;
-
-    sf::Texture menuBackgroundTexture;
-    sf::Sprite menuBackgroundSprite;
-    if (!menuBackgroundTexture.loadFromFile("../ressources/gfx/background.png")) {
-        std::cout << "Error loading background texture" << std::endl;
-        // Handle error
-    }
-    menuBackgroundSprite.setTexture(menuBackgroundTexture);
-    menuBackgroundSprite.setScale(0.8, 0.8);
-    menuBackgroundSprite.setPosition(0, 0);
-    menuBackgroundSprite.setColor(sf::Color(66,232,0,120));
-    
-    if (!font.loadFromFile("../ressources/fonts/OXYGENE1.ttf")) { // Load a font
-        // Handle error
-    }
-    
-    sf::Font font2;
-    if (!font2.loadFromFile("../ressources/fonts/pusab.ttf")) { // Load a font
-        // Handle error
-    }
-
-    sf::Sprite titleScreenFont;
-    sf::Texture titleScreenTexture;
-    if (!titleScreenTexture.loadFromFile("../ressources/gfx/title.png")) {
-        // Handle error
-    }
-    titleScreenFont.setTexture(titleScreenTexture);
-    titleScreenFont.setScale(0.5, 0.5);
-    titleScreenFont.setPosition(200, window.getSize().y / 2 - 100); // Position the text
-
-    sf::Sprite playButton;
-    sf::Texture playButtonTexture;
-    if (!playButtonTexture.loadFromFile("../ressources/gfx/titlePlay.png")) {
-        // Handle error
-    }
-    playButton.setTexture(playButtonTexture);
-    playButton.setScale(0.6, 0.6);
-    playButton.setPosition(300, window.getSize().y / 2 + 100); // Position the text
-
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
-
-            if (playButton.getGlobalBounds().contains(static_cast<float>(sf::Mouse::getPosition(window).x), static_cast<float>(sf::Mouse::getPosition(window).y))) {
-                playButton.setColor(sf::Color::Yellow); // Hover effect
-                if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                    // Trigger "Play" action here
-                    return; // Assuming this exits the title screen and proceeds to the game
-                }
-            } else {
-                playButton.setColor(sf::Color::White);
-            }
+   void titleScreen() {
+        sf::Font font;
+        if (!font.loadFromFile("../ressources/fonts/OXYGENE1.ttf")) {
+            std::cout << "Error loading font" << std::endl;
+            // Handle error appropriately
         }
 
-        
-        window.draw(menuBackgroundSprite);
-        window.draw(playButton);
-        window.draw(titleScreenFont);
-        window.display();
-        window.clear();
+        // Background setup
+        sf::Texture menuBackgroundTexture;
+        sf::Sprite menuBackgroundSprite;
+        if (!menuBackgroundTexture.loadFromFile("../ressources/gfx/background.png")) {
+            std::cout << "Error loading background texture" << std::endl;
+            // Handle error
+        }
+        menuBackgroundSprite.setTexture(menuBackgroundTexture);
+        float backgroundScaleX = static_cast<float>(window.getSize().x) / menuBackgroundTexture.getSize().x;
+        float backgroundScaleY = static_cast<float>(window.getSize().y) / menuBackgroundTexture.getSize().y;
+        menuBackgroundSprite.setScale(backgroundScaleX, backgroundScaleY);
+        menuBackgroundSprite.setColor(sf::Color(0, 128, 255)); // Optional: Add transparency
+
+        // Title setup
+        sf::Sprite titleScreenFont;
+        sf::Texture titleScreenTexture;
+        if (!titleScreenTexture.loadFromFile("../ressources/gfx/title.png")) {
+            std::cout << "Error loading title texture" << std::endl;
+            // Handle error
+        }
+        titleScreenFont.setTexture(titleScreenTexture);
+        titleScreenFont.setScale(0.5f, 0.5f); // Adjust scaling as needed
+        titleScreenFont.setPosition(window.getSize().x / 2 - titleScreenFont.getGlobalBounds().width / 2, window.getSize().y / 4);
+
+        // Play button setup
+        sf::Sprite playButton;
+        sf::Texture playButtonTexture;
+        if (!playButtonTexture.loadFromFile("../ressources/gfx/titlePlay.png")) {
+            std::cout << "Error loading play button texture" << std::endl;
+            // Handle error
+        }
+        playButton.setTexture(playButtonTexture);
+        playButton.setScale(0.5f, 0.5f); // Original scale
+        playButton.setPosition(window.getSize().x / 2 - playButton.getGlobalBounds().width / 2, titleScreenFont.getPosition().y + titleScreenFont.getGlobalBounds().height + 20);
+
+        float originalScale = 0.5f;
+        float hoverScale = 0.6f; // Scale when hovered
+        sf::Clock clock; // Clock to manage smooth transitions
+
+        while (window.isOpen()) {
+            sf::Event event;
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::Closed) window.close();
+            }
+
+            // Hover effect and click detection for play button
+            bool isHovering = playButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
+            float currentScale = playButton.getScale().x;
+            float scaleChange = clock.restart().asSeconds() * 2; // Speed of the scale change
+
+            if (isHovering) {
+                if (currentScale < hoverScale) {
+                    currentScale += scaleChange;
+                    if (currentScale > hoverScale) currentScale = hoverScale;
+                }
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                    // Here, transition to the gameplay
+                    state = GAMEPLAY;
+                    return; // Exit the title screen loop
+                }
+            } else {
+                if (currentScale > originalScale) {
+                    currentScale -= scaleChange;
+                    if (currentScale < originalScale) currentScale = originalScale;
+                }
+            }
+            playButton.setScale(currentScale, currentScale);
+
+            window.clear();
+            window.draw(menuBackgroundSprite);
+            window.draw(titleScreenFont);
+            window.draw(playButton);
+            window.display();
+        }
     }
-}
 
 
-    void run() {
+    void gameplay() {
         titleScreen();
         Player player;
-        ScrollingBackground background;
+        ScrollingBackground background(window.getSize().x);
         sf::Clock clock;
-
         while (window.isOpen()) {
             sf::Event event;
             while (window.pollEvent(event)) {
@@ -127,13 +152,26 @@ public:
             window.draw(player.sprite); // Draw the sprite instead of the sprite
 
             window.draw(groundBackgroundSprite);
-
             window.draw(groundSprite);
             window.draw(ground);
             
             window.display();
             window.clear();
 
-        }         
+        }
+    }
+
+
+      void run() {
+        while (window.isOpen()) {
+            switch (state) {
+                case TITLE_SCREEN:
+                    titleScreen();
+                    break;
+                case GAMEPLAY:
+                    gameplay(); // You'll implement this method
+                    break;
+            }
+        }
     }
 };
