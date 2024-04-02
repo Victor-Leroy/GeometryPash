@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "levelObjectTest.hpp"
 #include <regex>
 #include <vector>
 #include <unordered_map>
@@ -105,7 +104,9 @@ class LevelObject {
         std::string str(object_type_char);
         BlockObject::ObjectType object_type = stringToObjectType(str);
         
-        BlockObject block(object_type, x_pos, y_pos, x_repetition, y_repetition, rotation); 
+        BlockObject block(object_type, x_pos, y_pos, x_repetition, y_repetition, rotation);
+
+        return block;
     }
 
     void fillVector(void){
