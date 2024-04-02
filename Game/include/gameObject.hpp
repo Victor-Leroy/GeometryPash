@@ -9,7 +9,7 @@ public:
     sf::Music music; // Add a music member variable
     
 
-    Game() : window(sf::VideoMode(1280, 720), "Game"), ground(sf::Vector2f(800.0f, 5.0f)) {
+    Game() : window(sf::VideoMode(1280, 720), "Game"), ground(sf::Vector2f(1280.0f, 5.0f)) {
         window.setFramerateLimit(60); // Limit the frame rate to 60 FPS
         srand(static_cast<unsigned int>(time(0))); // Seed for random
         ground.setPosition(0, 530);
@@ -42,7 +42,7 @@ public:
         // Handle error
     }
     menuBackgroundSprite.setTexture(menuBackgroundTexture);
-    menuBackgroundSprite.setScale(0.5, 0.5);
+    menuBackgroundSprite.setScale(0.8, 0.8);
     menuBackgroundSprite.setPosition(0, 0);
     menuBackgroundSprite.setColor(sf::Color(66,232,0,120));
     
@@ -70,7 +70,7 @@ public:
         // Handle error
     }
     playButton.setTexture(playButtonTexture);
-    playButton.setScale(0.5, 0.5);
+    playButton.setScale(0.6, 0.6);
     playButton.setPosition(300, window.getSize().y / 2 + 100); // Position the text
 
     while (window.isOpen()) {
@@ -90,11 +90,12 @@ public:
             }
         }
 
-        window.clear();
+        
         window.draw(menuBackgroundSprite);
         window.draw(playButton);
         window.draw(titleScreenFont);
         window.display();
+        window.clear();
     }
 }
 
