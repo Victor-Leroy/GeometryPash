@@ -34,16 +34,23 @@ public:
 
      void titleScreen() {
         sf::Font font;
+        
         if (!font.loadFromFile("../ressources/fonts/OXYGENE1.ttf")) { // Load a font
             // Handle error
         }
+        sf::Font font2;
+        if (!font2.loadFromFile("../ressources/fonts/pusab.ttf")) { // Load a font
+            // Handle error
+        }
         sf::Text title("GEOMETRY DASH", font, 50); // Create a text object
-        title.setFillColor(sf::Color::White);
+        title.setFillColor(sf::Color(154,247,0));
+        title.setOutlineThickness(5);
+        title.setOutlineColor(sf::Color(0,0,0));    
         title.setPosition(200, window.getSize().y / 2 - 100); // Position the text
 
-        sf::Text pressToStart("Press any key to start", font, 20);
+        sf::Text pressToStart("Press any key to start", font2, 20);
         pressToStart.setFillColor(sf::Color::White);
-        pressToStart.setPosition(250, window.getSize().y / 2); // Position the text
+        pressToStart.setPosition(275, window.getSize().y / 2); // Position the text
 
         while (window.isOpen()) {
             sf::Event event;
@@ -56,6 +63,7 @@ public:
                     return; // Return to proceed to the main game loop
                 }
             }
+        
             window.clear();
             window.draw(title);
             window.draw(pressToStart);
