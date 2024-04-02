@@ -118,7 +118,8 @@ class LevelObject {
     }
     
 public:
-    LevelObject(std::string layout_file_name){
+    LevelObject(char* layout_file_name){
+        std::string str(layout_file_name);
         this->layout_file_.open(layout_file_name);
         fillVector();
         this->layout_file_.close();
