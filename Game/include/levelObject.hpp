@@ -2,146 +2,139 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "levelObjectTest.hpp"
 #include <regex>
+#include <vector>
+#include <unordered_map>
+#include <cstdlib>
+#include <SFML/Graphics.hpp>
 
-using namespace std;
 
-class LevelObject {
-    // string layout_file_name_ = "../ressources/level/1.txt";
-    // ifstream layout_file_("../ressources/level/1.txt");
-    ifstream layout_file_;
+class BlockObject{
+    std::string object_png_;
+    int x_pos_;
+    int y_pos_; 
+    int x_repetition_;
+    int y_repetition_;
+    float rotation_;
 
 public:
-
-    enum class ObjectType {
-        BLOCK,
-        HAZARD,
-        ORB,
-        PAD,
-        SHIP_PORTAL,
-        CUBE_PORTAL,
-        UPSIDE_DOWN_PORTAL,
-        NORMAL_PORTAL
-    };
-
-    LevelObject(/*string layout_file_name*/) : layout_file_("../ressources/level/1.txt"){
-        // this->layout_file_name_ = layout_file_name;
-        // this->layout_file_ = layout_file_(layout_file_name_);
-
+    BlockObject(std::string object_png, int x_pos, int y_pos, int x_repetition, int y_repetition, int rotation){
+        this->object_png_ = object_png;
+        this->x_pos_ = x_pos;
+        this->y_pos_ = y_pos; 
+        this->x_repetition_ = x_repetition;
+        this->y_repetition_ = y_repetition;
+        this->rotation_ = rotation*90.0f; 
     }
 
-    
-    struct ObjectStruct {
-        ObjectType object_type;
+    std::string getObjectPNG(void){
+        return this->object_png_;
+    }
+
+    int getXpos(void){
+        return this->x_pos_;
+    }
+
+    int getYpos(void){
+        return this->y_pos_;
+    }
+
+    int getXrepetition(void){
+        return this->x_repetition_;
+    }
+
+    int getYrepetition(void){
+        return this->y_repetition_;
+    }
+
+    float getRotation(void){
+        return this->rotation_;
+    }
+};
+
+class LevelObject {
+    std::ifstream layout_file_;
+    std::vector<BlockObject> list_of_blocks_;
+    std::vector<sf::Sprite> list_of_block_sprites_;
+
+    std::string stringToObjectPNG(std::string str){
+        static const std::unordered_map<std::string, std::string> objectMap = {
+            {"BLOCK", "../ressources/gfx/BLOCK.png"},
+            {"HAZARD", "../ressources/gfx/SPIKE.png"},
+            {"ORB", "../ressources/gfx/ywORB.png"},
+            {"PAD", "../ressources/gfx/ywPAD.png"},
+            {"SHIP_PORTAL", "../ressources/gfx/pSHIP.png"},
+            {"CUBE_PORTAL", "../ressources/gfx/pCUBE.png"},
+            {"UPSIDE_DOWN_PORTAL", "../ressources/gfx/pUPSD.png"},
+            {"NORMAL_PORTAL", "../ressources/gfx/pRGLR.png"}
+        };
+
+        auto it = objectMap.find(str);
+        if(it != objectMap.end()){
+            return it->second;
+        }else{
+            printf("Error: invalid block");
+            std::exit(EXIT_FAILURE);
+        }
+    }
+
+
+    BlockObject lineToBlock(std::string line){
+        char object_type_char[20];
         int x_pos;
         int y_pos; 
         int x_repetition;
         int y_repetition;
-        int rotation; 
-               
-    }; 
+        float rotation; 
 
-    void getFileInformation() {
-        string line;
-        cout << "Reading from the file" << endl;
-        while(getline(layout_file_, line)){
-            lineToObject(line);
+        std::sscanf("%s %d %d %d %d %d", object_type_char, &x_pos, &y_pos,
+        &x_repetition, &y_repetition, &rotation);
+
+        std::string str(object_type_char);
+        std::string object_type = stringToObjectPNG(str);
+        
+        BlockObject block(object_type, x_pos, y_pos, x_repetition, y_repetition, rotation*90.0f);
+
+        return block;
+    }
+
+    void fillVector(void){
+        std::string line;
+        while (getline(layout_file_, line)) {
+            BlockObject block = lineToBlock(line);
+            list_of_blocks_.push_back(block);
         }
-        return;
     }
 
-    void lineToObject(string line) {
-        ObjectStruct object;
-        scanf("%s %d %d %d %d %d", object.object_type, object.x_pos, object.y_pos, object.x_repetition, object.y_repetition, object.rotation);
-        // createObstacle(object);
-        cout << object.x_pos << endl;
-        return;
-    }
+    void makeListOfSprite(){
+        for (BlockObject block : list_of_blocks_) {
+            sf::Texture texture;
+            texture.loadFromFile(block.getObjectPNG());
 
-    sf::Sprite obstacle;
-    sf::Texture obstacleTexture;
-    float Test_x = 500.0f;
-    float Test_y = 300.0f;
+            sf::Vector2f position(block.getXpos(), block.getYpos());
 
-    void createObstacle(sf::RenderWindow& window) {
-        ObjectStruct object;
-        object.object_type = ObjectType::BLOCK;
-        object.rotation = 0;
-        object.x_pos = Test_x;
-        object.y_pos = Test_y;
-        object.x_repetition = 3;
-        object.y_repetition = 1;
-        switch(object.object_type){
-        case ObjectType::BLOCK:
-            if (!obstacleTexture.loadFromFile("../ressources/gfx/BLOCK.png")) { // Replace "character.png" with your image file
-            // Handle error
-            }   
-            obstacle.setTexture(obstacleTexture);
-            break;
-        case ObjectType::HAZARD:
-            if (!obstacleTexture.loadFromFile("../ressources/gfx/SPIKE.png")) { // Replace "character.png" with your image file
-            // Handle error
-            }   
-            obstacle.setTexture(obstacleTexture);
-            break;
-        case ObjectType::ORB:
-            if (!obstacleTexture.loadFromFile("../ressources/gfx/ywORB.png")) { // Replace "character.png" with your image file
-            // Handle error
-            }   
-            obstacle.setTexture(obstacleTexture);
-            break;
-        case ObjectType::PAD:
-            if (!obstacleTexture.loadFromFile("../ressources/gfx/ywPAD.png")) { // Replace "character.png" with your image file
-            // Handle error
-            }   
-            obstacle.setTexture(obstacleTexture);
-            break;
-        case ObjectType::SHIP_PORTAL:
-            if (!obstacleTexture.loadFromFile("../ressources/gfx/pSHIP.png")) { // Replace "character.png" with your image file
-            // Handle error
-            }   
-            obstacle.setTexture(obstacleTexture);
-            break;
-        case ObjectType::CUBE_PORTAL:
-            if (!obstacleTexture.loadFromFile("../ressources/gfx/pCUBE.png")) { // Replace "character.png" with your image file
-            // Handle error
-            }   
-            obstacle.setTexture(obstacleTexture);
-            break;
-        case ObjectType::UPSIDE_DOWN_PORTAL:
-            if (!obstacleTexture.loadFromFile("../ressources/gfx/pUPSD.png")) { // Replace "character.png" with your image file
-            // Handle error
-            }   
-            obstacle.setTexture(obstacleTexture);
-            break;
-        case ObjectType::NORMAL_PORTAL:
-            if (!obstacleTexture.loadFromFile("../ressources/gfx/pRGLR.png")) { // Replace "character.png" with your image file
-            // Handle error
-            }   
-            obstacle.setTexture(obstacleTexture);
-            break;
-        default:
-            break; 
+            sf::Sprite sprite;
+            sprite.setTexture(texture);
+            sprite.setPosition(position);
+            sprite.setRotation(block.getRotation());
+            list_of_block_sprites_.push_back(sprite);
         }
+    }
+    
+public:
+    LevelObject(std::string layout_file_name){
+        this->layout_file_.open(layout_file_name);
+        fillVector();
+        this->layout_file_.close();
 
-        obstacle.setScale(sf::Vector2f(0.5f, 0.5f));
-
-        for(object.y_repetition; object.y_repetition > 0; object.y_repetition--){
-                for(object.x_repetition; object.x_repetition > 0; object.x_repetition--){
-                    obstacle.setPosition(object.x_pos, object.y_pos);
-                    obstacle.setRotation(object.rotation);
-                    object.x_pos += 50;
-                    window.draw(obstacle);
-            }
-            object.y_pos += 50;
-        }
-        return;     
-
+        makeListOfSprite();
     }
 
-    void update(float deltaTime){
-        Test_x -= 100.0f * deltaTime;
+    std::vector<BlockObject>& getListOfBlocksReference(){
+        return list_of_blocks_;
     }
 
+    std::vector<sf::Sprite>& getListOfSpritesReference(){
+        return list_of_block_sprites_;
+    }
 };
