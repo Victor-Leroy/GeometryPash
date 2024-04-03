@@ -1,55 +1,49 @@
+#include <SFML/Graphics.hpp>
+#include <vector>
+
 class ScrollingBackground {
 public:
     sf::Texture texture;
-    sf::Sprite sprite1, sprite2;
-    const float scrollSpeed = 150.0f; // Adjust scrolling speed
-    float windowWidth;
+    std::vector<sf::Sprite> sprites;
+    const float scrollSpeed; // Pixels per second
 
-    ScrollingBackground(float width) : windowWidth(width) {
-        // Load the texture
-        if (!texture.loadFromFile("../ressources/sprites/gdbackground.png")) {
-            // Handle loading error
+    ScrollingBackground(const std::string& texturePath, float speed, unsigned int windowWidth)
+        : scrollSpeed(speed) {
+        if (!texture.loadFromFile(texturePath)) {
+            throw std::runtime_error("Unable to load background texture");
         }
 
-        // Set texture to sprites
-        sprite1.setTexture(texture);
-        sprite2.setTexture(texture);
+        texture.setRepeated(true); // Enable texture repeating
 
-        // Initially position the second sprite adjacent to the first
-        // considering the window's width if necessary
-        repositionSprites();
+        // Calculate how many sprites are needed to cover the entire window width
+        unsigned int spriteCount = windowWidth / texture.getSize().x + 1;
+
+        // Create and position the sprites
+        for (unsigned int i = 0; i <= spriteCount; ++i) {
+            sf::Sprite sprite(texture);
+            sprite.setTextureRect(sf::IntRect(0, 0, texture.getSize().x, texture.getSize().y)); // Set the texture rectangle
+            sprite.setPosition(static_cast<float>(i * texture.getSize().x), 0);
+            sprites.push_back(sprite);
+        }
     }
 
     void update(float deltaTime) {
-        // Scroll the sprites left
-        sprite1.move(-scrollSpeed * deltaTime, 0);
-        sprite2.move(-scrollSpeed * deltaTime, 0);
+        // Move each sprite left by scrollSpeed
+        for (auto& sprite : sprites) {
+            sprite.move(-scrollSpeed * deltaTime, 0);
 
-        // If a sprite completely moves out of view (left of the screen), reset its position
-        if (sprite1.getPosition().x + texture.getSize().x < 0) {
-            sprite1.setPosition(sprite2.getPosition().x + texture.getSize().x, 0);
+            // If the sprite is off-screen, reset its position to the right
+            if (sprite.getPosition().x + texture.getSize().x < 0) {
+                sprite.setPosition(sprites.back().getPosition().x + texture.getSize().x, 0);
+                // Move the reset sprite to the back of the vector to maintain ordering
+                std::rotate(sprites.begin(), sprites.begin() + 1, sprites.end());
+            }
         }
-        if (sprite2.getPosition().x + texture.getSize().x < 0) {
-            sprite2.setPosition(sprite1.getPosition().x + texture.getSize().x, 0);
-        }
-
-        // Ensure continuous coverage
-        repositionSprites();
     }
 
     void draw(sf::RenderWindow& window) {
-        window.draw(sprite1);
-        window.draw(sprite2);
-    }
-
-private:
-    void repositionSprites() {
-        // Ensure the sprites cover the entire window width continuously
-        if (sprite1.getPosition().x + texture.getSize().x < windowWidth) {
-            sprite2.setPosition(sprite1.getPosition().x + texture.getSize().x, 0);
-        }
-        if (sprite2.getPosition().x + texture.getSize().x < windowWidth) {
-            sprite1.setPosition(sprite2.getPosition().x + texture.getSize().x, 0);
+        for (const auto& sprite : sprites) {
+            window.draw(sprite);
         }
     }
 };

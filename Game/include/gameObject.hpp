@@ -5,6 +5,7 @@ public:
     enum GameState {
         TITLE_SCREEN,
         GAMEPLAY,
+        PAUSE
     };
 
     sf::RenderWindow window;
@@ -135,7 +136,7 @@ public:
         LevelObject level(level_name);
 
         Player player;
-        ScrollingBackground background(window.getSize().x);
+        ScrollingBackground background("../ressources/sprites/gdbackground.png", 150.0f, window.getSize().x);    
         sf::Clock clock;
 
         while (window.isOpen()) {
@@ -156,7 +157,7 @@ public:
             level.update(deltaTime);
             
             background.draw(window);
-            window.draw(player.sprite); // Draw the sprite instead of the sprite
+            window.draw(player.sprite); 
 
             window.draw(groundBackgroundSprite);
             window.draw(groundSprite);
@@ -180,7 +181,7 @@ public:
                     titleScreen();
                     break;
                 case GAMEPLAY:
-                    gameplay(); // You'll implement this method
+                    gameplay(); 
                     break;
             }
         }
