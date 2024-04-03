@@ -6,41 +6,30 @@
 #include <vector>
 #include <unordered_map>
 #include <cstdlib>
+#include <SFML/Graphics.hpp>
 
 
 class BlockObject{
-public:
-    enum class ObjectType {
-        BLOCK,
-        HAZARD,
-        ORB,
-        PAD,
-        SHIP_PORTAL,
-        CUBE_PORTAL,
-        UPSIDE_DOWN_PORTAL,
-        NORMAL_PORTAL
-    };
-
 private:
-    ObjectType object_type_;
+    std::string object_png_;
     int x_pos_;
     int y_pos_; 
     int x_repetition_;
     int y_repetition_;
-    int rotation_; 
+    float rotation_;
 
 public:
-    BlockObject(ObjectType object_type, int x_pos, int y_pos, int x_repetition, int y_repetition, int rotation){
-        this->object_type_ = object_type;
+    BlockObject(std::string object_png, int x_pos, int y_pos, int x_repetition, int y_repetition, int rotation){
+        this->object_png_ = object_png;
         this->x_pos_ = x_pos;
         this->y_pos_ = y_pos; 
         this->x_repetition_ = x_repetition;
         this->y_repetition_ = y_repetition;
-        this->rotation_ = rotation; 
+        this->rotation_ = rotation*90.0f; 
     }
 
-    ObjectType getObjectType(void){
-        return this->object_type_;
+    std::string getObjectPNG(void){
+        return this->object_png_;
     }
 
     int getXpos(void){
@@ -59,7 +48,7 @@ public:
         return this->y_repetition_;
     }
 
-    int getRotation(void){
+    float getRotation(void){
         return this->rotation_;
     }
 };
@@ -67,17 +56,18 @@ public:
 class LevelObject {
     std::ifstream layout_file_;
     std::vector<BlockObject> list_of_blocks_;
+    std::vector<sf::Sprite> list_of_block_sprites_;
 
-    BlockObject::ObjectType stringToObjectType(std::string str){
-        static const std::unordered_map<std::string, BlockObject::ObjectType> objectMap = {
-            {"BLOCK", BlockObject::ObjectType::BLOCK},
-            {"HAZARD", BlockObject::ObjectType::HAZARD},
-            {"ORB", BlockObject::ObjectType::ORB},
-            {"PAD", BlockObject::ObjectType::PAD},
-            {"SHIP_PORTAL", BlockObject::ObjectType::SHIP_PORTAL},
-            {"CUBE_PORTAL", BlockObject::ObjectType::CUBE_PORTAL},
-            {"UPSIDE_DOWN_PORTAL", BlockObject::ObjectType::UPSIDE_DOWN_PORTAL},
-            {"NORMAL_PORTAL", BlockObject::ObjectType::NORMAL_PORTAL}
+    std::string stringToObjectPNG(std::string str){
+        static const std::unordered_map<std::string, std::string> objectMap = {
+            {"BLOCK", "../ressources/gfx/BLOCK.png"},
+            {"HAZARD", "../ressources/gfx/SPIKE.png"},
+            {"ORB", "../ressources/gfx/ywORB.png"},
+            {"PAD", "../ressources/gfx/ywPAD.png"},
+            {"SHIP_PORTAL", "../ressources/gfx/pSHIP.png"},
+            {"CUBE_PORTAL", "../ressources/gfx/pCUBE.png"},
+            {"UPSIDE_DOWN_PORTAL", "../ressources/gfx/pUPSD.png"},
+            {"NORMAL_PORTAL", "../ressources/gfx/pRGLR.png"}
         };
 
         auto it = objectMap.find(str);
@@ -96,15 +86,15 @@ class LevelObject {
         int y_pos; 
         int x_repetition;
         int y_repetition;
-        int rotation; 
+        float rotation; 
 
         std::sscanf("%s %d %d %d %d %d", object_type_char, &x_pos, &y_pos,
         &x_repetition, &y_repetition, &rotation);
 
         std::string str(object_type_char);
-        BlockObject::ObjectType object_type = stringToObjectType(str);
+        std::string object_type = stringToObjectPNG(str);
         
-        BlockObject block(object_type, x_pos, y_pos, x_repetition, y_repetition, rotation);
+        BlockObject block(object_type, x_pos, y_pos, x_repetition, y_repetition, rotation*90.0f);
 
         return block;
     }
@@ -116,6 +106,21 @@ class LevelObject {
             list_of_blocks_.push_back(block);
         }
     }
+
+    void makeListOfSprite(){
+        for (BlockObject block : list_of_blocks_) {
+            sf::Texture texture;
+            texture.loadFromFile(block.getObjectPNG());
+
+            sf::Vector2f position(block.getXpos(), block.getYpos());
+
+            sf::Sprite sprite;
+            sprite.setTexture(texture);
+            sprite.setPosition(position);
+            sprite.setRotation(block.getRotation());
+            list_of_block_sprites_.push_back(sprite);
+        }
+    }
     
 public:
     LevelObject(char* layout_file_name){
@@ -123,9 +128,15 @@ public:
         this->layout_file_.open(layout_file_name);
         fillVector();
         this->layout_file_.close();
+
+        makeListOfSprite();
     }
 
     std::vector<BlockObject>& getListOfBlocksReference(){
         return list_of_blocks_;
+    }
+
+    std::vector<sf::Sprite>& getListOfSpritesReference(){
+        return list_of_block_sprites_;
     }
 };
