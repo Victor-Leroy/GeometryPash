@@ -13,6 +13,9 @@ public:
     sf::Texture groundBackgroundTexture;
     sf::Sprite groundBackgroundSprite;
     sf::Music music; // Add a music member variable
+    sf::SoundBuffer buttonPressSoundBuffer;
+    sf::Sound buttonPressSound;
+    sf::Music menuMusic;
     GameState state;
     
 
@@ -26,7 +29,6 @@ public:
                // handle error
         }
 
-
         // Set the ground background texture to the sprite
         groundBackgroundSprite.setTexture(groundBackgroundTexture);
         float groundBackgroundScaleX = static_cast<float>(window.getSize().x) / groundBackgroundTexture.getSize().x;
@@ -34,13 +36,7 @@ public:
         groundBackgroundSprite.setScale(groundBackgroundScaleX, groundBackgroundScaleY);
         groundBackgroundSprite.setPosition(0, 530); // Position it below the ground line
 
-        if (!music.openFromFile("../ressources/sfx/StereoMadness.ogg")) { // Replace with your music file path
-            std::cout << "Error loading music" << std::endl;
-            // Handle error (e.g., exit the game or continue without music)
-        } else {
-            music.setLoop(true); // Optional: Loop the music
-            music.play(); // Start playing the music
-        }
+        
     }
 
    void titleScreen() {
@@ -61,7 +57,7 @@ public:
         float backgroundScaleX = static_cast<float>(window.getSize().x) / menuBackgroundTexture.getSize().x;
         float backgroundScaleY = static_cast<float>(window.getSize().y) / menuBackgroundTexture.getSize().y;
         menuBackgroundSprite.setScale(backgroundScaleX, backgroundScaleY);
-        menuBackgroundSprite.setColor(sf::Color(0, 128, 255)); // Optional: Add transparency
+        menuBackgroundSprite.setColor(sf::Color(255, 105, 180)); // Optional: Add transparency
 
         // Title setup
         sf::Sprite titleScreenFont;
@@ -85,6 +81,21 @@ public:
         playButton.setScale(0.5f, 0.5f); // Original scale
         playButton.setPosition(window.getSize().x / 2 - playButton.getGlobalBounds().width / 2, titleScreenFont.getPosition().y + titleScreenFont.getGlobalBounds().height + 20);
 
+        if (!buttonPressSoundBuffer.loadFromFile("../ressources/sfx/playSound.ogg")) {
+            std::cerr << "Failed to load button press sound" << std::endl;
+            // Handle error appropriately
+        }
+
+        if (!menuMusic.openFromFile("../ressources/sfx/menuLoop.wav")) {
+            std::cerr << "Failed to load menu music" << std::endl;
+            // Handle error appropriately
+        }
+        menuMusic.setLoop(true); // Loop the music if you want
+        menuMusic.play();
+
+        buttonPressSound.setBuffer(buttonPressSoundBuffer);
+        buttonPressSound.setVolume(100.f); // 
+
         float originalScale = 0.5f;
         float hoverScale = 0.6f; // Scale when hovered
         sf::Clock clock; // Clock to manage smooth transitions
@@ -107,6 +118,11 @@ public:
                 }
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                     // Here, transition to the gameplay
+                    buttonPressSound.play();
+
+                    // Transition to the gameplay after a short delay to let the sound play
+                    sf::sleep(sf::seconds(buttonPressSound.getBuffer()->getDuration().asSeconds()));
+
                     state = GAMEPLAY;
                     return; // Exit the title screen loop
                 }
@@ -131,6 +147,18 @@ public:
         Player player;
         ScrollingBackground background("../ressources/sprites/gdbackground.png", 150.0f, window.getSize().x);    
         sf::Clock clock;
+        if (!music.openFromFile("../ressources/sfx/StereoMadness.ogg")) { 
+            std::cout << "Error loading music" << std::endl;
+            // Handle error (e.g., exit the game or continue without music)
+        } else {
+            music.setLoop(true); // Optional: Loop the music
+            music.play(); // Start playing the music
+        }
+
+        if (menuMusic.getStatus() == sf::Music::Playing) {
+            menuMusic.stop();
+        }
+
         while (window.isOpen()) {
             sf::Event event;
             while (window.pollEvent(event)) {
@@ -141,7 +169,7 @@ public:
                              player.jump();
                 }
             }
-
+         
             float deltaTime = clock.restart().asSeconds();
 
             player.update(deltaTime);
