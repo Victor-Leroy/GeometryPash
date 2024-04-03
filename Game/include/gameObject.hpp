@@ -138,10 +138,6 @@ public:
         ScrollingBackground background(window.getSize().x);
         sf::Clock clock;
 
-        for (sf::Sprite sprite : level.getListOfSpritesReference()){
-                window.draw(sprite);
-        }
-
         while (window.isOpen()) {
             sf::Event event;
             while (window.pollEvent(event)) {
@@ -157,7 +153,7 @@ public:
 
             player.update(deltaTime);
             background.update(deltaTime);
-
+            level.update(deltaTime);
             
             background.draw(window);
             window.draw(player.sprite); // Draw the sprite instead of the sprite
@@ -166,10 +162,13 @@ public:
             window.draw(groundSprite);
             window.draw(ground);
             
+            for (sf::Sprite sprite : level.getListOfSpritesReference()){
+                window.draw(sprite);
+            }
+            
 
             window.display();
             window.clear();
-
         }
     }
 

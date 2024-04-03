@@ -56,24 +56,26 @@ class LevelObject {
     std::ifstream layout_file_;
     std::vector<BlockObject> list_of_blocks_;
     std::vector<sf::Sprite> list_of_block_sprites_;
+    const float scrollSpeed = 150.0f;
 
     std::string stringToObjectPNG(std::string str){
         static const std::unordered_map<std::string, std::string> objectMap = {
             {"BLOCK", "../ressources/gfx/BLOCK.png"},
-            {"HAZARD", "../ressources/gfx/SPIKE.png"},
-            {"ORB", "../ressources/gfx/ywORB.png"},
-            {"PAD", "../ressources/gfx/ywPAD.png"},
-            {"SHIP_PORTAL", "../ressources/gfx/pSHIP.png"},
-            {"CUBE_PORTAL", "../ressources/gfx/pCUBE.png"},
-            {"UPSIDE_DOWN_PORTAL", "../ressources/gfx/pUPSD.png"},
-            {"NORMAL_PORTAL", "../ressources/gfx/pRGLR.png"}
+            {"SPIKE", "../ressources/gfx/SPIKE.png"},
+            {"ywORB", "../ressources/gfx/ywORB.png"},
+            {"ywPAD", "../ressources/gfx/ywPAD.png"},
+            {"pSHIP", "../ressources/gfx/pSHIP.png"},
+            {"pCUBE", "../ressources/gfx/pCUBE.png"},
+            {"pUPSD", "../ressources/gfx/pUPSD.png"},
+            {"pRGLR", "../ressources/gfx/pRGLR.png"}
         };
 
         auto it = objectMap.find(str);
+
         if(it != objectMap.end()){
             return it->second;
         }else{
-            printf("Error: invalid block");
+            printf("Error: invalid block\n");
             std::exit(EXIT_FAILURE);
         }
     }
@@ -85,9 +87,9 @@ class LevelObject {
         int y_pos; 
         int x_repetition;
         int y_repetition;
-        float rotation; 
+        float rotation;
 
-        std::sscanf("%s %d %d %d %d %d", object_type_char, &x_pos, &y_pos,
+        std::sscanf(line.c_str() ,"%s %d %d %d %d %d", object_type_char, &x_pos, &y_pos,
         &x_repetition, &y_repetition, &rotation);
 
         std::string str(object_type_char);
@@ -100,7 +102,7 @@ class LevelObject {
 
     void fillVector(void){
         std::string line;
-        while (getline(layout_file_, line)) {
+        while (std::getline(layout_file_, line)) {
             BlockObject block = lineToBlock(line);
             list_of_blocks_.push_back(block);
         }
@@ -136,5 +138,11 @@ public:
 
     std::vector<sf::Sprite>& getListOfSpritesReference(){
         return list_of_block_sprites_;
+    }
+
+    void update(float deltaTime){
+        for (sf::Sprite sprite : list_of_block_sprites_){
+            sprite.move(-scrollSpeed * deltaTime, 0);
+        }
     }
 };
