@@ -1,3 +1,5 @@
+#include <SFML/Audio.hpp>
+
 class Game {
 public:
     enum GameState {
@@ -128,9 +130,18 @@ public:
 
     void gameplay() {
         titleScreen();
+
+        std::string level_name("../ressources/level/1.txt");
+        LevelObject level(level_name);
+
         Player player;
         ScrollingBackground background(window.getSize().x);
         sf::Clock clock;
+
+        for (sf::Sprite sprite : level.getListOfSpritesReference()){
+                window.draw(sprite);
+        }
+
         while (window.isOpen()) {
             sf::Event event;
             while (window.pollEvent(event)) {
@@ -146,12 +157,10 @@ public:
 
             player.update(deltaTime);
             background.update(deltaTime);
-            level.update(deltaTime);
 
             
             background.draw(window);
             window.draw(player.sprite); // Draw the sprite instead of the sprite
-            level.createObstacle(window);
 
             window.draw(groundBackgroundSprite);
             window.draw(groundSprite);

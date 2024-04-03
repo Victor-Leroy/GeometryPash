@@ -10,7 +10,6 @@
 
 
 class BlockObject{
-private:
     std::string object_png_;
     int x_pos_;
     int y_pos_; 
@@ -123,8 +122,7 @@ class LevelObject {
     }
     
 public:
-    LevelObject(char* layout_file_name){
-        std::string str(layout_file_name);
+    LevelObject(std::string layout_file_name){
         this->layout_file_.open(layout_file_name);
         fillVector();
         this->layout_file_.close();
