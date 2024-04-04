@@ -209,11 +209,15 @@ public:
             menuMusic.stop();
         }
 
-            // Within your game initialization
         Level level;
-        level.addObstacle(sf::Vector2f(800, 400), sf::Vector2f(50, 50));
-        level.addObstacle(sf::Vector2f(600, 450), sf::Vector2f(100, 25));
-        // ... add more obstacles as needed for your level ...
+        std::vector<Obstacle> obstacles;
+
+        loadLevelFromFile("../ressources/level/1.txt", obstacles);
+
+        for (auto& obstacle : obstacles) {
+            level.addObstacle(obstacle); // Assuming Level::addObstacle accepts Obstacle objects
+        }
+
 
 
 
@@ -266,8 +270,6 @@ public:
                     music.pause();
                     clock.restart();
                     pausePopUp(gameSceneSprite);
-                }
-                else{
                     state = GAMEPLAY;
                     music.play();
                 }

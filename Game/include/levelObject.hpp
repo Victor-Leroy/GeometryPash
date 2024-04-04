@@ -2,8 +2,8 @@ class Level {
 public:
     std::vector<Obstacle> obstacles;
 
-    void addObstacle(const sf::Vector2f& position, const sf::Vector2f& size) {
-        obstacles.emplace_back(position, size);
+    void addObstacle(Obstacle obstacle) {
+        obstacles.push_back(obstacle);
     }
 
     void draw(sf::RenderWindow& window) {
