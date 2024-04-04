@@ -3,12 +3,6 @@ class Player {
 public:
     sf::Sprite sprite;
     sf::Texture texture;
-    float verticalVelocity = 0.0f;
-    bool isJumping = false;
-    bool isRotating = false; // Indicates if the character is currently rotating
-    float rotationSpeed = 300.0f; // Speed of rotation in degrees per second
-    float totalRotation = 0.0f; // Reset rotation for new jump
-
 
     Player() {
          // Load the texture
@@ -28,10 +22,6 @@ public:
     }
 
     void update(float deltaTime) {
-        const float gravity = 1700.0f; // Pixels per second^2
-        const float jumpVelocity = -600.0f; // Initial jump velocity
-        const float maxRotation = 180.0f; // Duration of rotation in seconds
-
         // Apply gravity
         if (!isOnGround() || isJumping) {
             verticalVelocity += gravity * deltaTime;
@@ -78,5 +68,25 @@ public:
             isJumping = true;
         }
     }
+
+    bool collidesWith(const Level& level) {
+    for (const auto& obstacle : level.obstacles) {
+        if ( sprite.getGlobalBounds().intersects(obstacle.shape.getGlobalBounds())) {
+            return true;
+        }
+    }
+    return false;
+}
+
+private:
+    
+    float verticalVelocity = 0.0f;
+    bool isJumping = false;
+    bool isRotating = false; // Indicates if the character is currently rotating
+    float rotationSpeed = 300.0f; // Speed of rotation in degrees per second
+    float totalRotation = 0.0f; // Reset rotation for new jump
+    const float gravity = 1700.0f; // Pixels per second^2
+    const float jumpVelocity = -600.0f; // Initial jump velocity
+    const float maxRotation = 180.0f; // Duration of rotation in seconds
 };
 

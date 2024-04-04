@@ -11,8 +11,8 @@
 #include <sstream>
 #include <list>
 #include "background.hpp"
-#include "playerObject.hpp"
+#include "obstacle.hpp"
 #include "levelObject.hpp"
-// #include "levelObjectTest.hpp"
+#include "playerObject.hpp"
 #include "gameObject.hpp"
 

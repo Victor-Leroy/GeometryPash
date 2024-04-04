@@ -38,6 +38,7 @@ public:
         groundBackgroundSprite.setScale(groundBackgroundScaleX, groundBackgroundScaleY);
         groundBackgroundSprite.setPosition(0, 530); // Position it below the ground line
 
+    
         
     }
 
@@ -189,11 +190,6 @@ public:
 
 
     void gameplay() {
-        titleScreen();
-
-        std::string level_name("../ressources/level/1.txt");
-        LevelObject level(level_name);
-
         Player player;
         ScrollingBackground background("../ressources/sprites/gdbackground.png", 150.0f, window.getSize().x);    
         sf::Clock clock;
@@ -213,6 +209,14 @@ public:
             menuMusic.stop();
         }
 
+            // Within your game initialization
+        Level level;
+        level.addObstacle(sf::Vector2f(800, 400), sf::Vector2f(50, 50));
+        level.addObstacle(sf::Vector2f(600, 450), sf::Vector2f(100, 25));
+        // ... add more obstacles as needed for your level ...
+
+
+
         bool isPaused = false;
 
         while (window.isOpen()) {
@@ -229,10 +233,18 @@ public:
          
             float deltaTime = clock.restart().asSeconds();
 
+
             player.update(deltaTime);
             background.update(deltaTime);
-            level.update(deltaTime);
             
+            level.update(deltaTime);
+
+            // Now check for collisions after updating positions
+            if (player.collidesWith(level)) {
+                // Handle collision
+            }
+
+            window.clear();
             background.draw(window);
             window.draw(player.sprite); 
 
@@ -240,10 +252,7 @@ public:
             window.draw(groundSprite);
             window.draw(ground);
             
-            for (sf::Sprite sprite : level.getListOfSpritesReference()){
-                window.draw(sprite);
-            }
-            
+            level.draw(window); // Draw the level obstacles
 
             window.display();
             texture.update(window); // Capture the current window content
