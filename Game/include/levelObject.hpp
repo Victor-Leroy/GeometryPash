@@ -55,8 +55,9 @@ public:
 class LevelObject {
     std::ifstream layout_file_;
     std::vector<BlockObject> list_of_blocks_;
-    std::vector<sf::Sprite> list_of_block_sprites_;
+    //std::vector<sf::Sprite> list_of_block_sprites_;
     const float scrollSpeed = 150.0f;
+    BlockObject blockarray[18]; 
 
     std::string stringToObjectPNG(std::string str){
         static const std::unordered_map<std::string, std::string> objectMap = {
@@ -89,7 +90,7 @@ class LevelObject {
         int y_repetition;
         float rotation;
 
-        std::sscanf(line.c_str() ,"%s %d %d %d %d %d", object_type_char, &x_pos, &y_pos,
+        std::sscanf(line.c_str() ,"%s %d %d %d %d %f", object_type_char, &x_pos, &y_pos,
         &x_repetition, &y_repetition, &rotation);
 
         std::string str(object_type_char);
@@ -101,15 +102,20 @@ class LevelObject {
     }
 
     void fillVector(void){
+        int i;
         std::string line;
         while (std::getline(layout_file_, line)) {
             BlockObject block = lineToBlock(line);
-            list_of_blocks_.push_back(block);
+            blockarray[i] = block; 
+            i++; 
         }
+         
     }
 
-    void makeListOfSprite(){
+    /*void makeListOfSprite(){
+        int i = 0; 
         for (BlockObject block : list_of_blocks_) {
+            
             sf::Texture texture;
             texture.loadFromFile(block.getObjectPNG());
 
@@ -120,8 +126,11 @@ class LevelObject {
             sprite.setPosition(position);
             sprite.setRotation(block.getRotation());
             list_of_block_sprites_.push_back(sprite);
+            std::cout << "i = " << i << std::endl;
+            i++;
+
         }
-    }
+    }*/
     
 public:
     LevelObject(std::string layout_file_name){
@@ -129,20 +138,20 @@ public:
         fillVector();
         this->layout_file_.close();
 
-        makeListOfSprite();
+        //makeListOfSprite();
     }
 
-    std::vector<BlockObject>& getListOfBlocksReference(){
-        return list_of_blocks_;
+    auto getListOfBlocksReference(){
+        return blockarray;
     }
 
-    std::vector<sf::Sprite>& getListOfSpritesReference(){
+    /*std::vector<sf::Sprite>& getListOfSpritesReference(){
         return list_of_block_sprites_;
-    }
+    }*/
 
-    void update(float deltaTime){
+    /*void update(float deltaTime){
         for (sf::Sprite sprite : list_of_block_sprites_){
             sprite.move(-scrollSpeed * deltaTime, 0);
         }
-    }
+    } */
 };
