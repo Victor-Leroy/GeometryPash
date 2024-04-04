@@ -212,7 +212,7 @@ public:
         Level level;
         std::vector<Obstacle> obstacles;
 
-        loadLevelFromFile("../ressources/level/1.txt", obstacles);
+        loadLevelFromFile("../ressources/level/level1.txt", obstacles);
 
         for (auto& obstacle : obstacles) {
             level.addObstacle(obstacle); // Assuming Level::addObstacle accepts Obstacle objects
