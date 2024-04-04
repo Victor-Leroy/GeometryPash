@@ -13,7 +13,7 @@ public:
     }
 
       void update(float deltaTime) {
-        float scrollSpeed = 200.f; // Units per second, adjust as needed
+        float scrollSpeed = 230.f; // Units per second, adjust as needed
         
         for (auto& obstacle : obstacles) {
             // Move each obstacle to the left
