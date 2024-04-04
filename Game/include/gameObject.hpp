@@ -141,12 +141,59 @@ public:
             window.display();
         }
     }
+   
+    void pausePopUp(sf::Sprite& gameSceneSprite) { // add as argument the window of the game 
+        sf::Vector2u windowSize = window.getSize();
+        sf::RectangleShape overlay(sf::Vector2f(static_cast<float>(windowSize.x-25), static_cast<float>(windowSize.y-25)));
+
+        overlay.setFillColor(sf::Color(0, 0, 0, 220)); // Semi-transparent black
+
+        overlay.setPosition(12.5f, 12.5f); // Offset from the window edges
+
+
+        sf::Font font;
+        if (!font.loadFromFile("../ressources/fonts/pusab.ttf")) {
+            std::cerr << "Error loading font for pause menu." << std::endl;
+            return;
+        }
+
+        sf::Text pauseText("PAUSED PRESS ENTER TO RESUME", font, 30);
+        pauseText.setFillColor(sf::Color::White);
+        pauseText.setPosition(window.getSize().x / 2 - pauseText.getLocalBounds().width / 2, window.getSize().y / 2 - pauseText.getLocalBounds().height / 2);
+
+        // Assuming state is set to PAUSE before this function is called
+        while (state == PAUSE) {
+            sf::Event event;
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::KeyPressed) {
+                    if (event.key.code == sf::Keyboard::Enter) {
+                        state = GAMEPLAY; // Change the game state back to gameplay
+                        break;
+                    }
+                }
+            }
+
+            window.clear(); // Optionally clear with a background color
+            // No need to draw the game scene here if it's static
+            window.draw(gameSceneSprite); // Draw the game scene
+            window.draw(overlay);
+            window.draw(pauseText);
+            window.display();
+        }
+    }
+
+
+
 
 
     void gameplay() {
         Player player;
         ScrollingBackground background("../ressources/sprites/gdbackground.png", 150.0f, window.getSize().x);    
         sf::Clock clock;
+        sf::Texture texture;
+        if(!texture.create(window.getSize().x, window.getSize().y)){
+            std::cerr << "Error creating texture for pause menu." << std::endl;
+        }
         if (!music.openFromFile("../ressources/sfx/StereoMadness.ogg")) { 
             std::cout << "Error loading music" << std::endl;
             // Handle error (e.g., exit the game or continue without music)
@@ -159,6 +206,8 @@ public:
             menuMusic.stop();
         }
 
+        bool isPaused = false;
+
         while (window.isOpen()) {
             sf::Event event;
             while (window.pollEvent(event)) {
@@ -169,6 +218,7 @@ public:
                              player.jump();
                 }
             }
+
          
             float deltaTime = clock.restart().asSeconds();
 
@@ -184,8 +234,23 @@ public:
             window.draw(ground);
             
             window.display();
+            texture.update(window); // Capture the current window content
+            sf::Sprite gameSceneSprite(texture);
             window.clear();
 
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                isPaused= !isPaused;
+                if (isPaused){
+                     state = PAUSE;
+                    music.pause();
+                    clock.restart();
+                    pausePopUp(gameSceneSprite);
+                }
+                else{
+                    state = GAMEPLAY;
+                    music.play();
+                }
+            }
         }
     }
 
