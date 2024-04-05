@@ -5,12 +5,26 @@ enum class ObstacleType {
 struct Obstacle {
     ObstacleType type;
     sf::RectangleShape shape; // For simplicity, using a rectangle shape for all types
-
+    sf::Texture texture; // Texture for the obstacle
     
     Obstacle(ObstacleType type, const sf::Vector2f& position, const sf::Vector2f& size)
         : type(type), shape(size) {
         shape.setPosition(position);
         // You can set the color or texture based on the type
+                // Load the texture based on the type
+        if (type == ObstacleType::BLOCK) {
+            if (!texture.loadFromFile("/Users/victor/Documents/GitHub/GD-Clone/Game/ressources/gfx/BLOCK.png")) {
+                // handle error...
+            }
+            shape.setTexture(&texture);
+        }
+        else if (type == ObstacleType::SPIKE) {
+            if (!texture.loadFromFile("/Users/victor/Documents/GitHub/GD-Clone/Game/ressources/gfx/SPIKE.png")) {
+                // handle error...
+            }
+            shape.setTexture(&texture);
+        }
+        // Add similar code for other obstacle types if needed
     }
 };
 
