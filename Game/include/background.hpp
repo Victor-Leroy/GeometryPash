@@ -1,11 +1,6 @@
-#include <SFML/Graphics.hpp>
-#include <vector>
 
 class ScrollingBackground {
 public:
-    sf::Texture texture;
-    std::vector<sf::Sprite> sprites;
-    const float scrollSpeed; // Pixels per second
 
     ScrollingBackground(const std::string& texturePath, float speed, unsigned int windowWidth)
         : scrollSpeed(speed) {
@@ -46,4 +41,9 @@ public:
             window.draw(sprite);
         }
     }
+
+private:
+    sf::Texture texture;
+    std::vector<sf::Sprite> sprites;
+    const float scrollSpeed; // Pixels per second
 };
