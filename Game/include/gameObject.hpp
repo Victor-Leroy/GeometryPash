@@ -261,7 +261,7 @@ public:
             menuMusic.stop();
         }
 
-        loadLevelFromFile("../ressources/level/level1.txt", level.obstacles);
+        level.loadLevelFromFile("../ressources/level/level1.txt");
 
         for (auto &obstacle : level.obstacles)
         {
@@ -289,8 +289,11 @@ public:
             player.update(deltaTime);
             background.update(deltaTime);
 
+            if(player.findCollision(&level)){
+                state = TITLE_SCREEN;
+                break;
+            }
             level.update(deltaTime);
-            player.findCollision(&level);
 
             window.clear();
             background.draw(window);

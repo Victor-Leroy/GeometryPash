@@ -80,58 +80,41 @@ public:
     };
 
 
-    void findCollision(Level *level){
+    bool findCollision(Level *level){
 
         bool resetGround = true;
+        bool resetLevel = false;
 
         for (auto& obstacle : level->obstacles){
             float dx = this->sprite.getPosition().x - obstacle.shape.getPosition().x;
             float dy = this->sprite.getPosition().y - obstacle.shape.getPosition().y;
             float distance = std::sqrt(dx * dx + dy * dy);
-            if(distance < 50 && distance > -50){
+            if(distance < 100 && distance > -100){
                 sf::FloatRect player_rect = this->sprite.getGlobalBounds();
                 sf::FloatRect object_rect = obstacle.shape.getGlobalBounds();
 
                 sf::FloatRect intersection;
                 if(object_rect.intersects(player_rect, intersection)){
-
-                    float combinedHalfWidths = (player_rect.width + object_rect.width) / 2;
-                    float combinedHalfHeights = (player_rect.height + object_rect.height) / 2;
-
-                    float offsetX = fabs(dx);
-                    float offsetY = fabs(dy);
-
-                    float penetrationX = combinedHalfWidths - offsetX;
-                    float penetrationY = combinedHalfHeights - offsetY;
-
-                    if (penetrationX > penetrationY) {
-                        if (dy > 0) {
-                            // CollisionDirection::Top; // Collision from top
-                            std::cout << "Top" << std::endl;
-                        } else {
-                            //return CollisionDirection::Bottom; // Collision from bottom
-                            std::cout << "Bottom" << std::endl;
+                    if(obstacle.type == ObstacleType::SPIKE){
+                        if(distance < 10){
+                            return true;
+                        }else{
+                            //
                         }
-                    } else {
-                        if (dx > 0) {
-                            //return CollisionDirection::Left; // Collision from left
-                            std::cout << "Left" << std::endl;
-                        } else {
-                            //return CollisionDirection::Right; // Collision from right
-                            std::cout << "Left" << std::endl;
-                        }
+                    }else{
+                        float combinedHalfWidths = (player_rect.width + object_rect.width) / 2;
+                        float combinedHalfHeights = (player_rect.height + object_rect.height) / 2;
+
+                        float offsetX = fabs(dx);
+                        float offsetY = fabs(dy);
+
+                        float penetrationX = combinedHalfWidths - offsetX;
+                        float penetrationY = combinedHalfHeights - offsetY;
+
+                        this->ground = object_rect.top - 28;
+                        this->sprite.setRotation(0);
+                        resetGround = false;
                     }
-
-
-                    this->ground = object_rect.top - 25;
-                    this->sprite.setRotation(0);
-                    resetGround = false;
-                    //std::cout << player_rect.top << std::endl;
-                    /*if((player_rect.top - player_rect.height) < object_rect.top){
-                        std::cout << object_rect.height << std::endl;
-                        this->ground = object_rect.top;
-                    }*/
-                    //std::cout << "kill" << std::endl;
                 }
             }
         }
@@ -140,6 +123,8 @@ public:
             this->ground = 500;
             resetGround = true;
         }
+
+        return false;
     }
 
 private:
