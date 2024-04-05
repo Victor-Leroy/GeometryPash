@@ -16,7 +16,7 @@ public:
     sf::Sprite groundSprite;
     sf::Texture groundBackgroundTexture;
     sf::Sprite groundBackgroundSprite;
-    sf::Music music; // Add a music member variable
+    sf::Music music; 
     sf::SoundBuffer buttonPressSoundBuffer;
     sf::Sound buttonPressSound;
     sf::Music menuMusic;
@@ -25,7 +25,7 @@ public:
     GameState state;
 
     Game() : window(sf::VideoMode(1280, 720), "Game"), ground(sf::Vector2f(1280.0f, 5.0f))
-    {                                 // Set the window size to 1280x720
+    {                                 
         window.setFramerateLimit(60); // Limit the frame rate to 60 FPS
         ground.setPosition(0, 530);
         state = TITLE_SCREEN;
@@ -55,7 +55,7 @@ public:
         for (const auto &obstacle : level.obstacles)
         {
             // Check if the obstacle is within the screen boundaries
-            if (obstacle.shape.getPosition().x + obstacle.shape.getSize().x >= left &&
+            if (obstacle.shape.getPosition().x + obstacle.shape.getGlobalBounds().width  >= left &&
                 obstacle.shape.getPosition().x <= right)
             {
                 // Only draw the obstacle if it's within the screen boundaries
@@ -234,12 +234,12 @@ public:
 
     void gameplay()
     {
+        loadTexture();
         Player player;
         ScrollingBackground background("../ressources/sprites/gdbackground.png", 150.0f, window.getSize().x);
         sf::Clock clock;
         sf::Texture texture;
         Level level;
-        std::vector<Obstacle> obstacles;
 
         if (!texture.create(window.getSize().x, window.getSize().y))
         {
@@ -261,11 +261,11 @@ public:
             menuMusic.stop();
         }
 
-        loadLevelFromFile("../ressources/level/level1.txt", obstacles);
+        loadLevelFromFile("../ressources/level/level1.txt", level.obstacles);
 
-        for (auto &obstacle : obstacles)
+        for (auto &obstacle : level.obstacles)
         {
-            level.addObstacle(obstacle); // Assuming Level::addObstacle accepts Obstacle objects
+            level.addObstacle(obstacle); 
         }
 
         bool isPaused = false;

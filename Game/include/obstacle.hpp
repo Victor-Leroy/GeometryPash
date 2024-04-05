@@ -1,30 +1,42 @@
+std::vector<sf::Texture> obstacleTexture;
+
+void loadTexture() {
+    sf::Texture texture;
+    if (!texture.loadFromFile("../ressources/gfx/BLOCK.png")) {
+        throw std::runtime_error("Unable to load obstacle texture");
+    }
+    obstacleTexture.push_back(texture);
+    if (!texture.loadFromFile("../ressources/gfx/SPIKE.png")) {
+        throw std::runtime_error("Unable to load obstacle texture");
+    }
+    obstacleTexture.push_back(texture);
+}
+
+
+
 enum class ObstacleType {
     SPIKE, BLOCK, ywPAD, ywORB, pUPSD, pSHIP, pRGLR, pCUBE
 };
 
 struct Obstacle {
     ObstacleType type;
-    sf::RectangleShape shape; // For simplicity, using a rectangle shape for all types
-    sf::Texture texture; // Texture for the obstacle
+    sf::Sprite shape; // Sprite for the obstacle
     
-    Obstacle(ObstacleType type, const sf::Vector2f& position, const sf::Vector2f& size)
-        : type(type), shape(size) {
+    Obstacle(ObstacleType type, const sf::Vector2f& position, const sf::Vector2f& size) {
+        switch (type)
+        {
+        case ObstacleType::SPIKE:
+            shape.setTexture(obstacleTexture[1]);
+            break;
+        
+        case ObstacleType::BLOCK:
+            shape.setTexture(obstacleTexture[0]);
+            break;
+        default:
+            break;
+        }
         shape.setPosition(position);
-        // You can set the color or texture based on the type
-                // Load the texture based on the type
-        if (type == ObstacleType::BLOCK) {
-            if (!texture.loadFromFile("/Users/victor/Documents/GitHub/GD-Clone/Game/ressources/gfx/BLOCK.png")) {
-                // handle error...
-            }
-            shape.setTexture(&texture);
-        }
-        else if (type == ObstacleType::SPIKE) {
-            if (!texture.loadFromFile("/Users/victor/Documents/GitHub/GD-Clone/Game/ressources/gfx/SPIKE.png")) {
-                // handle error...
-            }
-            shape.setTexture(&texture);
-        }
-        // Add similar code for other obstacle types if needed
+        shape.setScale(size.x / shape.getTexture()->getSize().x, size.y / shape.getTexture()->getSize().y);
     }
 };
 
@@ -39,6 +51,7 @@ ObstacleType stringToObstacleType(const std::string& typeString) {
     else if (typeString == "pCUBE") return ObstacleType::pCUBE;
     else throw std::runtime_error("Unknown obstacle type: " + typeString);
 }
+
 
 void loadLevelFromFile(const std::string& filename, std::vector<Obstacle>& obstacles) {
     std::ifstream file(filename);
@@ -56,7 +69,7 @@ void loadLevelFromFile(const std::string& filename, std::vector<Obstacle>& obsta
         
         ObstacleType type = stringToObstacleType(typeString);
         sf::Vector2f position(x, y);
-        sf::Vector2f size(50, 50); // Example size, adjust based on the type
+        sf::Vector2f size(50, 50); 
         
         // Create obstacles based on repetition
         for (int i = 0; i < repeatX; i++) {
@@ -67,4 +80,5 @@ void loadLevelFromFile(const std::string& filename, std::vector<Obstacle>& obsta
         }
     }
 }
+
 

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath> // For std::abs and std::fmod
 #include <vector>
+#include <unordered_map>
 #include <cstdlib> // For rand() and srand()
 #include <ctime>   // For Time()
 #include <algorithm> // For std::remove_if
@@ -9,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <string>
 #include <list>
 #include "background.hpp"
 #include "obstacle.hpp"

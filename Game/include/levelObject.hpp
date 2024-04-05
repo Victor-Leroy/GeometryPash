@@ -22,6 +22,7 @@ public:
             sf::Vector2f position = obstacle.shape.getPosition();
             position.x -= scrollSpeed * deltaTime;
             obstacle.shape.setPosition(position);
+            
         }
       }  
    

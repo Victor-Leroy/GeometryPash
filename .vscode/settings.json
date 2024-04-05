@@ -1,10 +1,24 @@
 {
     "files.associations": {
-        "*.c": "c",
         ".fantomasignore": "ignore",
+        "*.c": "c",
         "chrono": "cpp",
         "unordered_map": "cpp",
         "xstring": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "__hash_table": "cpp",
+        "__split_buffer": "cpp",
+        "__tree": "cpp",
+        "array": "cpp",
+        "bitset": "cpp",
+        "deque": "cpp",
+        "initializer_list": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "regex": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "vector": "cpp",
+        "__node_handle": "cpp"
     }
 }
