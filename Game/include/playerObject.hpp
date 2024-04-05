@@ -79,9 +79,23 @@ public:
         Bottom
     };
 
+    bool checkAABBCollision(const sf::FloatRect& rect1, const sf::FloatRect& rect2) {
+        // Check if one rectangle is to the left of the other
+        if (rect1.left + rect1.width < rect2.left || rect2.left + rect2.width < rect1.left) {
+            return false;
+        }
+        // Check if one rectangle is above the other
+        if (rect1.top + rect1.height < rect2.top || rect2.top + rect2.height < rect1.top) {
+            return false;
+        }
+        return true; // Rectangles overlap
+    }
+
+
 
     bool findCollision(Level *level){
 
+        sf::FloatRect playerRect = this->sprite.getGlobalBounds();
         bool resetGround = true;
         bool resetLevel = false;
 
@@ -96,7 +110,12 @@ public:
                 sf::FloatRect intersection;
                 if(object_rect.intersects(player_rect, intersection)){
                     if(obstacle.type == ObstacleType::SPIKE){
-                        if(distance < 10){
+                        sf::FloatRect obstacleRect = obstacle.shape.getGlobalBounds();
+                        // Adjust the obstacleRect for spikes to be more forgiving
+                        obstacleRect.height *= 0.6f; // Example: Reduce the effective height
+                        obstacleRect.width *= 0.6f; // Example: Reduce the effective width
+                        obstacleRect.top += obstacle.shape.getGlobalBounds().height * 0.2f; // Lower the hitbox
+                        if(checkAABBCollision(player_rect, obstacleRect)){
                             return true;
                         }else{
                             //
