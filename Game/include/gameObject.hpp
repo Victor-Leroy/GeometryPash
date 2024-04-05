@@ -320,6 +320,15 @@ public:
                     music.play();
                 }
             }
+
+            //when i press r restart the game
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+            {
+                state = TITLE_SCREEN;
+                music.stop();
+                menuMusic.play();
+                return;
+            }
         }
     }
 
