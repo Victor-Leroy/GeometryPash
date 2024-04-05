@@ -290,12 +290,7 @@ public:
             background.update(deltaTime);
 
             level.update(deltaTime);
-
-            // Now check for collisions after updating positions
-            if (player.collidesWith(level))
-            {
-                // Handle collision
-            }
+            player.findCollision(&level);
 
             window.clear();
             background.draw(window);

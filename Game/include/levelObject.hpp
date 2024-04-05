@@ -1,3 +1,5 @@
+#pragma once
+
 class Level {
 public:
     std::vector<Obstacle> obstacles;
