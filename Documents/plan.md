@@ -13,7 +13,6 @@
 
 ## technical documentation
 
-
 **Level class**
 
     x,y restart position
@@ -29,12 +28,10 @@
     size
     x, y position
 
-
    **Player class : block**
     jump function,
     move right function -> called every frame
-    colision detection -> check if two line intersect 
-
+    colision detection -> check if two line intersect
 
    **obstacle class : block**
     // the direction from which can it kills you
@@ -43,6 +40,3 @@
 
    **EndFlag class : block**
     victory function()
-
-
-
