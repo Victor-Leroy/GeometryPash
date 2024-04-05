@@ -314,8 +314,8 @@ public:
                 {
                     state = PAUSE;
                     music.pause();
-                    clock.restart();
                     pausePopUp(gameSceneSprite);
+                    clock.restart();
                     state = GAMEPLAY;
                     music.play();
                 }
